@@ -26,20 +26,28 @@
     opacity: 0;
   }
 }
+:root {
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
 body {
   margin: 0;
   padding: 0;
-  font-family: Raleway, "Times New Roman", Times, sans-serif;
+}
+body h2 {
+  font-size: 2rem;
 }
 body a {
   text-decoration: none;
 }
 body a:hover {
   text-decoration: none;
-}
-body a:active,
-body a:hover {
-  outline: 0;
 }
 body a.scroll-anchor {
   color: white;
@@ -50,19 +58,20 @@ body .alert {
 body .btn-primary {
   color: #76818d;
   background-color: #fff;
+  border: 1px solid;
+  border-radius: 4px;
   border-color: #76818d;
   box-shadow: none;
+  padding: 6px 12px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  outline: 0;
 }
 body .btn-primary:hover,
 body .btn-primary:active {
   color: #eee;
   background-color: #2c3e50;
   border-color: #2c3e50;
-  outline: 0;
 }
 body .btn-primary:focus,
 body .btn-primary.focus,
@@ -70,7 +79,6 @@ body .btn-primary.active,
 body .btn-primary:active,
 body a:link {
   box-shadow: none;
-  outline: 0;
 }
 body .btn-primary i.fa {
   margin-right: 10px;
@@ -100,9 +108,9 @@ body .pf-block-line {
   height: 3px;
   margin: 30px auto;
 }
-body .pfblock-text {
+body .pf-block-text {
   text-align: justify;
-  font-size: 18px;
+  font-size: 20px;
 }
 body .hidden {
   display: none;
@@ -136,15 +144,8 @@ body .intro {
 body .intro-text-block {
   color: white;
 }
-body .intro-text-block__starting-text {
+body .intro-text-block__text {
   padding-top: 15px;
-}
-body .intro-text-block__ending-text {
-  margin-top: 1rem;
-}
-body .intro-text-block__starting-text,
-body .intro-text-block__ending-text {
-  font-size: 16px;
 }
 body .intro-text-block__middle-text {
   font: 700 40px/1.2 Raleway, sans-serif;
@@ -153,7 +154,7 @@ body .intro-text-block__middle-text {
   margin: 5px 0 5px;
   font-weight: 800;
   display: block;
-  padding-top: 15px;
+  padding: 15px 0;
 }
 body .scroll-down {
   width: 50px;
@@ -217,7 +218,7 @@ body .main-menu.sticky {
   width: 100%;
   z-index: 1;
 }
-body .main-menu.sticky + #AboutMe {
+body .main-menu.sticky + .about-me-section {
   padding-top: 186px;
 }
 body .about-me,
@@ -269,30 +270,23 @@ body .experience .timeline::before {
   top: 10px;
 }
 body .experience .timeline .timeline-item {
+  width: 50%;
   position: relative;
-  left: calc(-50% + 90px);
-  display: flex;
   margin: 10px 0 70px;
-  text-align: right;
-}
-body .experience .timeline .timeline-item-right {
-  left: calc(50% - 90px);
-  flex-flow: row-reverse;
-  text-align: left;
-}
-body .experience .timeline .timeline-item .position-description {
-  max-width: 350px;
 }
 body .experience .timeline .timeline-item .dates-image {
+  position: absolute;
+  left: calc(100% - 75px);
   background-color: white;
   width: 150px;
   min-width: 150px;
   height: 150px;
-  padding-top: 35px;
-  margin: 0 10px;
   border-radius: 50%;
   border: 1px solid #eeeeee;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 body .experience .timeline .timeline-item .dates-image .date-from,
 body .experience .timeline .timeline-item .dates-image .date-to {
@@ -301,9 +295,20 @@ body .experience .timeline .timeline-item .dates-image .date-to {
 body .experience .timeline .timeline-item .dates-image p {
   margin: 0;
 }
+body .experience .timeline .timeline-item-right {
+  left: 50%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+body .experience .timeline .timeline-item-right .dates-image {
+  left: calc(-75px);
+}
+body .experience .timeline .timeline-item .position-description {
+  padding: 0 5px;
+}
 body .experience .timeline .timeline-item .text {
-  padding: 0 25px;
   color: #576472;
+  width: calc(100% - 75px);
 }
 body .experience .timeline .timeline-item .company-title,
 body .experience .timeline .timeline-item .company-position {
@@ -323,7 +328,7 @@ body .contact-me {
 body .contact-me .background-mask {
   background-color: rgba(60, 77, 95, 0.5);
 }
-body .contact-me .pfblock-subtitle {
+body .contact-me .pf-block-subtitle {
   text-align: center;
 }
 body .contact-me .three-items-block {
@@ -482,5 +487,188 @@ body .alert {
   display: inline-block;
   user-select: none;
   margin-bottom: 5px;
+}
+.about-me-section :not(:last-child).technology-icon {
+  margin-right: 5px;
+}
+.about-me-section .technology-icon {
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-left: 5px;
+  background-position: center;
+  background-size: contain;
+}
+.about-me-section .node-js {
+  background-image: url('../images/node-js_30x30.png');
+}
+.about-me-section .python {
+  background-image: url('../images/python_30x30.png');
+}
+.about-me-section .solidity {
+  background-image: url('../images/solidity_30x30.png');
+}
+.pf-block {
+  width: 800px;
+  margin: 0 auto;
+}
+.pf-block-text {
+  text-align: justify;
+  padding: 0 10px;
+}
+@media screen and (max-width: 800px) {
+  body .main-menu.sticky + #AboutMe {
+    padding-top: 126px;
+  }
+  body .intro-image-block__image {
+    width: 180px;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  body .intro-text-block__text {
+    font-size: 20px;
+  }
+  body .intro-text-block__middle-text {
+    font-size: 24px;
+  }
+  body .pf-block {
+    padding: 60px 10px 40px;
+    width: 100%;
+  }
+  body .pf-block-title {
+    font-size: 20px;
+  }
+  body .pf-block-text {
+    font-size: 16px;
+  }
+  body footer {
+    height: 60px;
+  }
+  body footer p {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 991px) {
+  body .experience .timeline::before {
+    left: 12.5%;
+  }
+  body .experience .timeline .timeline-item {
+    display: flex;
+    flex-flow: row-reverse;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+  }
+  body .experience .timeline .timeline-item-right {
+    left: 0;
+  }
+  body .experience .timeline .timeline-item .dates-image {
+    left: -75px;
+  }
+  body .experience .timeline .timeline-item .text {
+    text-align: center;
+  }
+  body .owl-carousel {
+    max-width: 100%;
+  }
+  body .modal .modal-dialog .modal-content__left {
+    width: 100%;
+  }
+  body .modal .modal-dialog .modal-content__right {
+    width: 100%;
+    padding-left: 35px;
+    padding-right: 35px;
+    margin-bottom: 30px;
+  }
+  body .modal .modal-dialog .modal-content .button-absolute {
+    display: inline-block;
+  }
+  body .modal .modal-dialog .modal-content .button-static {
+    display: none;
+  }
+}
+@media screen and (max-width: 576px) {
+  body .experience .timeline::before {
+    left: 63px;
+  }
+  body .experience .timeline .timeline-item {
+    width: 100%;
+    flex-direction: row;
+  }
+  body .experience .timeline .timeline-item-right {
+    left: 0;
+  }
+  body .experience .timeline .timeline-item .dates-image {
+    position: static;
+    width: 126px;
+    min-width: 126px;
+    height: 126px;
+  }
+  body .experience .timeline .timeline-item .dates-image .date-from,
+  body .experience .timeline .timeline-item .dates-image .date-to {
+    font-size: 18px;
+  }
+  body .experience .timeline .timeline-item .company-title img {
+    width: 150px;
+  }
+  body .experience .timeline .timeline-item .text {
+    padding-left: 15px;
+  }
+  body .owl-carousel {
+    max-width: 400px;
+    padding: 10px;
+  }
+  body .modal-content__left {
+    width: 400px;
+  }
+}
+@media screen and (max-width: 420px) {
+  body .owl-carousel {
+    max-width: 340px;
+    padding: 0px;
+  }
+  body .modal-content__left {
+    width: 340px;
+  }
+}
+@media screen and (max-width: 340px) {
+  body .experience .timeline::before {
+    left: 60px;
+  }
+  body .experience .timeline .timeline-item-right {
+    left: 0;
+  }
+  body .experience .timeline .timeline-item .dates-image {
+    width: 100px;
+    min-width: 100px;
+    height: 100px;
+  }
+  body .experience .timeline .timeline-item .dates-image .date-from,
+  body .experience .timeline .timeline-item .dates-image .date-to {
+    font-size: 14px;
+  }
+  body .experience .timeline .timeline-item .company-title img {
+    width: 150px;
+  }
+  body .experience .timeline .timeline-item .text {
+    padding: 0;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 800px) and (max-height: 720px) {
+  body .intro-image-block__image {
+    width: 180px;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  body .intro-text-block__text {
+    font-size: 20px;
+  }
+  body .intro-text-block__middle-text {
+    font-size: 24px;
+  }
 }
 /*# sourceMappingURL=./main.css.map */

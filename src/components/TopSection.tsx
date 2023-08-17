@@ -1,7 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 
-export default function TopSection() {
+interface IProps{
+	scrollToAboutMeSection: () => void;
+}
+
+export default function TopSection({scrollToAboutMeSection}: IProps) {
 	return (
 		<div id="TopSection" className="container-fluid top-section">
 			<div className="top-section__overlay overlay">
@@ -10,15 +14,15 @@ export default function TopSection() {
 						<img className="intro-image-block__image" src="./images/volodymyr_matseliukh_photo.png" alt="Volodymyr Matseliukh" height="439" width="400" />
 					</div>
 					<div className="intro__intro-text-block intro-text-block">
-						<h1 className="intro-text-block__starting-text" >
+						<h1 className="intro-text-block__text" >
 							Hi, my name is <span user-itemprop="name">Volodymyr Matseliukh</span> and I am
-							<span className="intro-text-block__middle-text" user-itemprop="jobTitle">Full stack web developer</span>
+							<span className="intro-text-block__middle-text" user-itemprop="jobTitle">Software Engineer</span>
+							creating modern and responsive web applications
 						</h1>
-						<p className="intro-text-block__ending-text">creating modern and responsive Web Application</p>
 					</div>
 				</div>
 
-				<div className="overlay__scroll-down scroll-down">
+				<div className="overlay__scroll-down scroll-down" onClick={scrollToAboutMeSection}>
 					<a className="scroll-anchor" href="#AboutMe" title="AboutMe">
 						<span className="hidden">Scroll down</span>
 						<span>
