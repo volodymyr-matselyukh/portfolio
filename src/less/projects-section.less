@@ -1,0 +1,47 @@
+//main: "main.less"
+
+.portfolio
+{
+	.company-name{
+		&:not(:last-child)::after{
+			content: "|";
+			position:relative;
+			left: 10px;
+		}
+
+		&:hover::after{
+			color: black;
+		}
+
+		&.active::after{
+			color: black;
+		}
+	}
+
+	.companies-row{
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.technologies-row{
+
+		padding: 10px 0;
+
+		.technology-tag{
+			&.active{
+				background-color: orange;
+			}
+
+			&:hover{
+				cursor: pointer;
+				background-color: orange;
+			}
+		}
+	}
+	
+
+	.portfolio-container{
+		padding: 10px 0;
+	}
+}

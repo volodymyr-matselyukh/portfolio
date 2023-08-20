@@ -9,7 +9,8 @@ export default function AboutMeSection({ aboutMeSectionRef }: IProps) {
 
 	return (
 		<div
-			className="container-fluid about-me about-me-section"
+			id="About"
+			className="about-me about-me-section"
 			ref={aboutMeSectionRef}
 		>
 			<div className="pf-block">

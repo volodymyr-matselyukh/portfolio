@@ -7,7 +7,7 @@ interface IProps{
 
 export default function TopSection({scrollToAboutMeSection}: IProps) {
 	return (
-		<div id="TopSection" className="container-fluid top-section">
+		<div id="TopSection" className="top-section">
 			<div className="top-section__overlay overlay">
 				<div className="overlay__intro intro" user-itemscope="true" user-itemtype="http://schema.org/Person">
 					<div className="intro__intro-image-block intro-image-block">

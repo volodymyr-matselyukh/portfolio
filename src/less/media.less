@@ -34,11 +34,11 @@ body {
 			width: 100%;
 		}
 
-		.pf-block-title{
+		.pf-block-title {
 			font-size: 20px;
 		}
 
-		.pf-block-text{
+		.pf-block-text {
 			font-size: 16px;
 		}
 
@@ -73,11 +73,11 @@ body {
 						left: 0;
 					}
 
-					.dates-image{
+					.dates-image {
 						left: -75px;
 					}
 
-					.text{
+					.text {
 						text-align: center;
 					}
 				}
@@ -134,7 +134,7 @@ body {
 
 					.dates-image {
 						position: static;
-						
+
 						width: 126px;
 						min-width: 126px;
 						height: 126px;
@@ -241,6 +241,62 @@ body {
 
 			&__middle-text {
 				font-size: 24px;
+			}
+		}
+	}
+
+	@media screen and (max-width:580px) {
+		.main-menu {
+			.content {
+				.navbar-toggler {
+					display: inline;
+				}
+
+				&__list {
+					display: none;
+				}
+			}
+
+			.burger-content {
+				padding: 10px 10px 0;
+				display: flex;
+				flex-direction: column;
+				height: 140px;
+				justify-content: space-between;
+			}
+		}
+	}
+
+	@media screen and (max-width:560px) {
+		.modal {
+			overflow-y: auto;
+
+			.project-item {
+				max-height: none;
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+
+
+				.header{
+					flex-grow: 0;
+					flex-basis: 50px;
+				}
+
+				.content {
+					flex-grow: 1;
+					overflow: auto;
+					display: block;
+
+					&__image{
+						display: block;
+						margin: 0 auto;
+					}
+
+					&__description{
+						max-height: none;
+					}
+				}
 			}
 		}
 	}

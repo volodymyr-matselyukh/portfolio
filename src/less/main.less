@@ -61,6 +61,7 @@ body {
 
 	a:hover {
 		text-decoration: none;
+		cursor: pointer;
 	}
 
 	a.scroll-anchor {
@@ -151,7 +152,7 @@ body {
 			background-color: rgba(60, 77, 95, 0.5);
 			background-image: url(/images/pattern.png);
 			background-repeat: repeat;
-			height: 100%;
+			height: 100vh;
 			left: 0;
 			position: absolute;
 			top: 0;
@@ -293,21 +294,12 @@ body {
 
 		.portfolio-container {
 			.row {
-				transition-duration: 0.4s;
-				transition-property: height, width;
-				backface-visibility: hidden;
 				overflow-y: auto;
 				overflow-x: hidden;
 				max-height: 440px;
 				justify-content: space-around;
-			}
-
-
-			.portfolio-item {
-				&__main-image {
-					width: 100%;
-					height: 100%;
-				}
+				display: flex;
+				flex-wrap: wrap;
 			}
 		}
 	}
@@ -627,8 +619,10 @@ body {
 	margin-bottom: 5px;
 }
 
-
 @import 'about-me-section.less';
+@import 'main-menu.less';
+@import 'projects-section.less';
+@import 'project-item.less';
 
 .pf-block {
 	width: 800px;

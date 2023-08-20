@@ -1,0 +1,74 @@
+//main: "main.less"
+
+.modal {
+	height: 100%;
+	width: 100%;
+
+	position: fixed;
+	background-color: rgba(220, 220, 220, 0.9);
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.project-item {
+		position: relative;
+		opacity: 1;
+		background-color: white;
+		width: 100%;
+		max-width: 800px;
+		max-height: 600px;
+		border: 1px solid rgba(0, 0, 0, 0.2);
+		border-radius: 5px;
+		overflow-y: auto;
+
+		.header {
+			height: 50px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0 10px;
+
+			&__close-button {
+				position: absolute;
+				background-image: url('/images/close_15x15.png');
+				background-repeat: no-repeat;
+				background-size: 15px;
+				background-position: center;
+				width: 30px;
+				height: 30px;
+				right: 10px;
+				border: 1px solid black;
+				border-radius: 50%;
+				padding: 5px;
+
+				&:hover {
+					box-shadow: 0px 1px 3px black;
+				}
+			}
+		}
+
+		.content {
+			display: flex;
+			align-items: flex-start;
+			padding: 0 10px 20px;
+
+			&__image {
+				flex: 2;
+			}
+
+			&__description {
+				flex: 3;
+				padding: 0 10px;
+				max-height: 500px;
+				overflow: auto;
+			}
+		}
+
+		.tags {
+			&__title {
+				padding: 10px 0;
+			}
+		}
+	}
+}

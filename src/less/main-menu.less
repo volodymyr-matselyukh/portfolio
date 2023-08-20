@@ -1,0 +1,63 @@
+//main: "main.less"
+
+.main-menu {
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
+	z-index: 1;
+	padding: 10px 0;
+
+
+	.pf-block {
+		padding: 0;
+		
+	}
+
+	.content {
+		display: flex;
+		justify-content: space-between;
+		padding: 0 10px;
+		align-items: center;
+
+		&__home-link {
+			text-decoration: none;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			font-size: 22px;
+			font-weight: 700;
+			font-family: Lobster, cursive;
+			color: black;
+		}
+
+		&__list {
+			display: flex;
+			flex-basis: 55%;
+			justify-content: space-between;
+			text-transform: uppercase;
+
+			font-size: 11px;
+			letter-spacing: 3px;
+			font-weight: 300;
+			font-family: Raleway, sans-serif;
+
+			.nav-item {
+				padding: 10px 15px;
+				color: black;
+
+				&:hover {
+					color: #E7746F;
+				}
+			}
+		}
+
+		.navbar-toggler {
+			display: none;
+		}
+	}
+
+	.burger-content
+	{
+		display: none;
+	}
+}

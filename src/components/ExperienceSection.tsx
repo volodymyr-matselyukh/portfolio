@@ -2,7 +2,9 @@ import { experience } from "../resources/experience";
 
 export default function ExperienceSection() {
 	return (
-		<div className="container-fluid experience experience-section">
+		<div 
+			id="Experience"
+		className="experience experience-section">
 			<div className="pf-block">
 				<h2 className="pf-block-title">Experience</h2>
 				<div className="pf-block-line"></div>
