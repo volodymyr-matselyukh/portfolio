@@ -265,6 +265,22 @@ body {
 				justify-content: space-between;
 			}
 		}
+
+		.contact-me{
+			.message-form{
+				.name-email-block{
+					display: block;
+				}
+			}
+
+			.message-block{
+				display: block;
+			}
+
+			.three-items-block{
+				display: block;
+			}
+		}
 	}
 
 	@media screen and (max-width:560px) {
@@ -278,7 +294,7 @@ body {
 				height: 100%;
 
 
-				.header{
+				.header {
 					flex-grow: 0;
 					flex-basis: 50px;
 				}
@@ -288,13 +304,52 @@ body {
 					overflow: auto;
 					display: block;
 
-					&__image{
+					&__image {
 						display: block;
 						margin: 0 auto;
 					}
 
-					&__description{
+					&__description {
 						max-height: none;
+					}
+				}
+			}
+		}
+
+		.portfolio {
+			.portfolio-container {
+				padding: 10px 0;
+				position: relative;
+
+				.up-down-buttons {
+					position: absolute;
+					height: 100%;
+					right: 0;
+					top: 0;
+					padding: 20px;
+
+					.up {
+						background-image: url('/images/up button_x_30.png');
+						top: 0;
+					}
+
+					.down {
+						background-image: url('/images/down button_x_30.png');
+						top: calc(100% - 80px);
+					}
+
+					.up,
+					.down {
+						background-repeat: no-repeat;
+						width: 40px;
+						height: 40px;
+						display: block;
+						position: relative;
+						background-position: center;
+						border: 2px solid gray;
+						border-radius: 50%;
+						background-size: 15px;
+						background-color: white;
 					}
 				}
 			}

@@ -53,9 +53,6 @@ body a:hover {
 body a.scroll-anchor {
   color: white;
 }
-body .alert {
-  border-radius: 0;
-}
 body .btn-primary {
   color: #76818d;
   background-color: #fff;
@@ -386,9 +383,6 @@ body footer p {
   margin: 0;
   font-size: 18px;
 }
-body .alert {
-  display: none;
-}
 /*fancy box styling*/
 .quick-view-container {
   background: rgba(10, 10, 10, 0.85);
@@ -580,8 +574,20 @@ body .alert {
   cursor: pointer;
   background-color: orange;
 }
-.portfolio .portfolio-container {
-  padding: 10px 0;
+.portfolio .technologies-row .technology-tag .counter {
+  background-color: white;
+  color: black;
+  border-radius: 50%;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  right: -8px;
+  box-shadow: 1px 1px 1px black;
+  border: 1px solid black;
 }
 .modal {
   height: 100%;
@@ -643,6 +649,139 @@ body .alert {
 }
 .modal .project-item .tags__title {
   padding: 10px 0;
+}
+.contact-me {
+  background-image: url(/images/contact_us_background_blurred.jpg);
+}
+.contact-me .three-items-block {
+  display: flex;
+  justify-content: space-around;
+}
+.contact-me .social-icons {
+  margin-top: 60px;
+  display: flex;
+  justify-content: right;
+}
+.contact-me .social-icons .social-icon {
+  margin-left: 10px;
+}
+.contact-me .social-icons .facebook {
+  background: url(/images/facebook-contact-icon.png) no-repeat;
+}
+.contact-me .social-icons .upwork {
+  background: url(/images/upwork-contact-icon.png) no-repeat;
+}
+.contact-me .social-icons .linkedin {
+  background: url(/images/linkedin-contact-icon.png) no-repeat;
+}
+.contact-me .form-control-input,
+.contact-me .form-control-text-area {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s;
+}
+.contact-me .form-control-input {
+  height: calc(1.5em + 0.75rem + 2px);
+}
+.contact-me .name-email-block {
+  display: flex;
+  justify-content: space-around;
+}
+.contact-me .name-email-block .input-block {
+  flex-basis: 250px;
+  flex-shrink: 1;
+}
+.contact-me .message-block {
+  display: flex;
+  justify-content: space-around;
+}
+.contact-me .message-block .message {
+  flex-basis: 450px;
+  flex-shrink: 1;
+}
+.contact-me .btn {
+  display: inline-block;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.contact-me .button-row {
+  padding: 10px 0;
+}
+.contact-me .button-row .btn-outline-light {
+  color: #f8f9fa;
+  border-color: #f8f9fa;
+}
+.contact-me .button-row .btn-outline-light:hover {
+  color: #212529;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+  cursor: pointer;
+}
+.contact-me .button-row .btn-outline-light:focus,
+.contact-me .button-row .btn-outline-light:active {
+  box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
+}
+.contact-me .message-form .label {
+  display: inline-block;
+  margin: 10px;
+}
+.contact-me .message-form .text-danger {
+  color: red;
+}
+.contact-me .alert {
+  position: fixed;
+  top: 100px;
+  right: 25px;
+  padding: 20px;
+  border-radius: 10px;
+}
+.contact-me .alert-success {
+  background-color: #2bcb2b;
+}
+.contact-me .alert-danger {
+  background-color: red;
+}
+.contact-me .alert .close {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+}
+.contact-me .alert .close::after {
+  content: '×';
+  position: relative;
+  top: -2px;
+  right: -1px;
+}
+.contact-me .alert .close:hover {
+  background: white;
+  color: black;
+  border-radius: 50%;
 }
 .pf-block {
   width: 800px;
@@ -820,6 +959,15 @@ body .alert {
     height: 140px;
     justify-content: space-between;
   }
+  body .contact-me .message-form .name-email-block {
+    display: block;
+  }
+  body .contact-me .message-block {
+    display: block;
+  }
+  body .contact-me .three-items-block {
+    display: block;
+  }
 }
 @media screen and (max-width: 560px) {
   body .modal {
@@ -846,6 +994,38 @@ body .alert {
   }
   body .modal .project-item .content__description {
     max-height: none;
+  }
+  body .portfolio .portfolio-container {
+    padding: 10px 0;
+    position: relative;
+  }
+  body .portfolio .portfolio-container .up-down-buttons {
+    position: absolute;
+    height: 100%;
+    right: 0;
+    top: 0;
+    padding: 20px;
+  }
+  body .portfolio .portfolio-container .up-down-buttons .up {
+    background-image: url('/images/up button_x_30.png');
+    top: 0;
+  }
+  body .portfolio .portfolio-container .up-down-buttons .down {
+    background-image: url('/images/down button_x_30.png');
+    top: calc(100% - 80px);
+  }
+  body .portfolio .portfolio-container .up-down-buttons .up,
+  body .portfolio .portfolio-container .up-down-buttons .down {
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    display: block;
+    position: relative;
+    background-position: center;
+    border: 2px solid gray;
+    border-radius: 50%;
+    background-size: 15px;
+    background-color: white;
   }
 }
 /*# sourceMappingURL=./main.css.map */

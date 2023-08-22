@@ -1,47 +1,60 @@
 //main: "main.less"
 
-.portfolio
-{
-	.company-name{
-		&:not(:last-child)::after{
+.portfolio {
+	.company-name {
+		&:not(:last-child)::after {
 			content: "|";
-			position:relative;
+			position: relative;
 			left: 10px;
 		}
 
-		&:hover::after{
+		&:hover::after {
 			color: black;
 		}
 
-		&.active::after{
+		&.active::after {
 			color: black;
 		}
 	}
 
-	.companies-row{
+	.companies-row {
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
 	}
 
-	.technologies-row{
+	.technologies-row {
 
 		padding: 10px 0;
 
-		.technology-tag{
-			&.active{
+		.technology-tag {
+			&.active {
 				background-color: orange;
 			}
 
-			&:hover{
+			&:hover {
 				cursor: pointer;
 				background-color: orange;
 			}
+
+			.counter {
+				background-color: white;
+				color: black;
+				border-radius: 50%;
+				font-size: 13px;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: 25px;
+				height: 25px;
+				position: relative;
+				right: -8px;
+				box-shadow: 1px 1px 1px black;
+				border: 1px solid black;
+			}
 		}
 	}
-	
 
-	.portfolio-container{
-		padding: 10px 0;
-	}
+
+	
 }

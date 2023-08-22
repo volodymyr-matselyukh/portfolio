@@ -17,6 +17,11 @@ export default function ProjectsSection() {
 	);
 
 	useEffect(() => {
+		initializeCompaniesMap();
+		initializeTechnologyArray();
+	}, [activeCompany, activeTechnology]);
+
+	const initializeCompaniesMap = () => {
 		const companiesMap = new Map<string, number>();
 
 		companiesMap.set("All", projects.length);
@@ -47,7 +52,9 @@ export default function ProjectsSection() {
 		}
 
 		setCompaniesMap(companiesMap);
+	};
 
+	const initializeTechnologyArray = () => {
 		const technologiesMap = new Map<string, number>();
 		const technologiesSet = new Set();
 
@@ -57,7 +64,7 @@ export default function ProjectsSection() {
 			)
 		);
 
-		technologiesMap.set("All", technologiesSet.size);
+		let totalTechnologiesCount = 0;
 
 		for (let i = 0; i < projects.length; i++) {
 			if (
@@ -79,14 +86,15 @@ export default function ProjectsSection() {
 				} else {
 					technologiesMap.set(projects[i].Technologies[j], 1);
 				}
+
+				totalTechnologiesCount++;
 			}
 		}
 
-		setTechnologiesArray(getSortedArray(technologiesMap));
+		technologiesMap.set("All", totalTechnologiesCount);
 
-		console.log("active company", activeCompany);
-		console.log("active technology", activeTechnology);
-	}, [activeCompany, activeTechnology]);
+		setTechnologiesArray(getSortedArray(technologiesMap));
+	};
 
 	const getSortedArray = (map: Map<string, number>) => {
 		const sortedArray: any[] = [];
@@ -126,9 +134,10 @@ export default function ProjectsSection() {
 							? "company-name active"
 							: "company-name"
 					}
-					dangerouslySetInnerHTML={{__html: `${company}(${projectsCount})`}}
-				>
-				</span>
+					dangerouslySetInnerHTML={{
+						__html: `${company}(${projectsCount})`,
+					}}
+				></span>
 			);
 		});
 
@@ -137,8 +146,6 @@ export default function ProjectsSection() {
 
 	const getTechnologiesRow = () => {
 		const rowItems: any[] = [];
-
-		console.log("technologies map size", technologiesArray.length);
 
 		technologiesArray.forEach((technologyObject) => {
 			rowItems.push(
@@ -154,7 +161,8 @@ export default function ProjectsSection() {
 							: "technology-tag"
 					}
 				>
-					{technologyObject.key}({technologyObject.value})
+					{technologyObject.key}
+					<span className="counter">{technologyObject.value}</span>
 				</span>
 			);
 		});
@@ -181,6 +189,11 @@ export default function ProjectsSection() {
 				<div className="technologies-row">{getTechnologiesRow()}</div>
 
 				<div className="portfolio-container">
+					<div className="up-down-buttons">
+						<a href="#Portfolio" title="up" className="up"></a>
+						<a href="#Contacts" title="down" className="down"></a>
+					</div>
+
 					<div className="row">
 						{projects
 							.sort((a, b) => (a.Order > b.Order ? 1 : -1))
@@ -200,7 +213,6 @@ export default function ProjectsSection() {
 										(t) => t !== activeTechnology
 									)
 								) {
-									console.log("returning from tech filter", project.Name);
 									return;
 								}
 

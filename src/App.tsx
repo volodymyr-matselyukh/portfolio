@@ -7,6 +7,8 @@ import ProjectsSection from "./components/ProjectsSection";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage";
 import ProjectItem from "./components/ProjectItem";
+import ContactsSection from "./components/ContactsSection";
+import FooterSection from "./components/FooterSection";
 
 function App() {
 	const aboutMeSectionRef = useRef<null | HTMLDivElement>(null);
@@ -30,6 +32,8 @@ function App() {
 					<AboutMeSection aboutMeSectionRef={aboutMeSectionRef} />
 					<ExperienceSection />
 					<ProjectsSection />
+					<ContactsSection />
+					<FooterSection />
 				</>
 			),
 			errorElement: <ErrorPage />
