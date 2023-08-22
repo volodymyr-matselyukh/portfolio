@@ -6,7 +6,6 @@ const messageRoutes = require("./api/routes/message");
 
 const connectionUri = 'mongodb+srv://volodymyrmatselyukh:' + process.env.MONGO_ATLAS_PW + '@portfolio.m8gvq5q.mongodb.net/?retryWrites=true&w=majority';
 
-//mongoose.connect('mongodb://volodymyrmatselyukh:'+ process.env.MONGO_ATLAS_PW +'@portfolio.m8gvq5q.mongodb.net',
 mongoose.connect(connectionUri);
 
 app.use((req, res, next) => {

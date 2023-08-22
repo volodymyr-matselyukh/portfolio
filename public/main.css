@@ -727,7 +727,7 @@ body footer p {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .contact-me .button-row {
-  padding: 10px 0;
+  padding: 20px 0 10px;
 }
 .contact-me .button-row .btn-outline-light {
   color: #f8f9fa;
@@ -782,6 +782,11 @@ body footer p {
   background: white;
   color: black;
   border-radius: 50%;
+}
+.contact-me .recapcha {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
 }
 .pf-block {
   width: 800px;

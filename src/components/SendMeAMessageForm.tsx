@@ -1,7 +1,8 @@
 import { Formik, Form, Field, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
 import sendEmail from "../api/emailService";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const MessageSendSchema = Yup.object().shape({
 	name: Yup.string()
@@ -21,6 +22,9 @@ const MessageSendSchema = Yup.object().shape({
 export default function SendMeAMessageForm() {
 	const [successAlertVisible, setSuccessAlertVisible] = useState<boolean>();
 	const [errorAlertVisible, setErrorAlertVisible] = useState<boolean>();
+	const recaptchaRef = useRef<ReCAPTCHA>(null);
+	const [timeoutRef, setTimeoutRef] = useState<any>();
+	const [showCaptchaIsNotFilled, setShowCaptchaIsNotFilled] = useState<boolean>(false);
 
 	const MyTextArea = (props: FieldHookConfig<string>) => {
 		const [field, meta] = useField(props);
@@ -37,6 +41,17 @@ export default function SendMeAMessageForm() {
 		);
 	};
 
+	useEffect(() => {
+		return () => {
+			setTimeoutRef(0);
+		};
+	}, []);
+
+	const clearAlerts = () => {
+		setSuccessAlertVisible(false);
+		setErrorAlertVisible(false);
+	};
+
 	return (
 		<>
 			<Formik
@@ -47,16 +62,41 @@ export default function SendMeAMessageForm() {
 				}}
 				validationSchema={MessageSendSchema}
 				onSubmit={(values, { resetForm }) => {
-					sendEmail(values.name, values.email, values.message)
-						.then((_) => {
-							setSuccessAlertVisible(true);
-						})
-						.catch((_) => {
-							setErrorAlertVisible(true);
-						})
-						.finally(() => {
-							resetForm();
-						});
+					if (recaptchaRef.current) {
+						clearAlerts();
+
+						const recaptchaValue =
+							recaptchaRef.current.getValue() || "";
+
+						if(!recaptchaValue)
+						{
+							setShowCaptchaIsNotFilled(true);
+							return;
+						}
+
+						sendEmail(
+							values.name,
+							values.email,
+							values.message,
+							recaptchaValue
+						)
+							.then((_) => {
+								setSuccessAlertVisible(true);
+								resetForm();
+							})
+							.catch((_) => {
+								setErrorAlertVisible(true);
+							})
+							.finally(() => {
+								recaptchaRef.current?.reset();
+
+								setTimeoutRef(
+									setInterval(() => {
+										clearAlerts();
+									}, 8000)
+								);
+							});
+					}
 				}}
 			>
 				{({ errors, touched }) => (
@@ -122,22 +162,18 @@ export default function SendMeAMessageForm() {
 							</div>
 						</div>
 
-						<div className="">
-							<div
-								className="g-recaptcha d-inline-block"
-								data-callback="onCaptchaSuccess"
-								data-sitekey="6Ldy1b0ZAAAAAJZ1t28BkHa-TUBeJ5rvcSe6vX05"
-							></div>
-							<input
-								type="hidden"
-								name="GRecaptchaResponse"
-								id="GRecaptchaResponse"
-							/>
-							<span
-								id="CaptchaValidation"
-								className="text-danger d-block"
-							></span>
-						</div>
+						<ReCAPTCHA
+							ref={recaptchaRef}
+							sitekey={
+								process.env
+									.REACT_APP_CAPTCHA_CLIENT_KEY as string
+							}
+							className="recapcha"
+							onChange={_ => {
+								setShowCaptchaIsNotFilled(false);
+							}}
+						/>
+						{showCaptchaIsNotFilled && <span className="text-danger">Fill the captcha</span>}
 
 						<div className="button-row">
 							<button
@@ -152,20 +188,22 @@ export default function SendMeAMessageForm() {
 				)}
 			</Formik>
 
-			{
-				successAlertVisible && (<div
+			{successAlertVisible && (
+				<div
 					className="alert alert-success"
 					id="MessageSentAlert"
 					role="alert"
 				>
 					Thanks! Your message has been sent.
-					
-					<span className="close" onClick={() => setSuccessAlertVisible(false)}></span>
-				</div>)
-			}
+					<span
+						className="close"
+						onClick={() => setSuccessAlertVisible(false)}
+					></span>
+				</div>
+			)}
 
-			{
-				errorAlertVisible && (<div
+			{errorAlertVisible && (
+				<div
 					className="alert alert-danger"
 					id="MessageErrorAlert"
 					role="alert"
@@ -173,10 +211,13 @@ export default function SendMeAMessageForm() {
 					<span className="message-text">
 						Something went wrong. Contact me in LinkedIn.
 					</span>
-					
-					<span className="close" onClick={() => setErrorAlertVisible(false)}></span>
-				</div>)
-			}
+
+					<span
+						className="close"
+						onClick={() => setErrorAlertVisible(false)}
+					></span>
+				</div>
+			)}
 		</>
 	);
 }
