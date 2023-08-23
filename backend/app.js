@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const messageRoutes = require("./api/routes/message");
 
@@ -22,6 +23,10 @@ app.use((req, res, next) => {
 
 app.use(express.json()); 
 app.use('/message', messageRoutes);
+
+app.get('/heartbeat', (req, res, next) => {
+	res.status(200).json({"status": "I am alive"});
+});
 
 app.use((req, res, next) => {
 	const error = new Error("Not found");
