@@ -1,4 +1,5 @@
-FROM node:alpine as base
+#prepare client app
+FROM node:alpine as client-base
 RUN apk add --no-cache bash
 WORKDIR /app
 
@@ -8,6 +9,7 @@ COPY babel.config.js ./
 COPY babel-plugin-macros.config.js ./
 COPY tsconfig.json ./
 COPY .env ./
+COPY commands-list.sh ./
 
 COPY src ./src
 COPY public ./public
@@ -16,8 +18,6 @@ RUN npm ci
 
 RUN npm run build
 
-FROM base as lightweight
-COPY build ./
-
 RUN npm install -g serve
+
 CMD ["serve", "-s", "build"]

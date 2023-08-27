@@ -726,6 +726,14 @@ body footer p {
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.contact-me .btn .button-content {
+  display: flex;
+}
+.contact-me .btn .button-content .loading-icon {
+  display: block;
+  width: 15px;
+  height: 15px;
+}
 .contact-me .button-row {
   padding: 20px 0 10px;
 }

@@ -25,6 +25,7 @@ export default function SendMeAMessageForm() {
 	const recaptchaRef = useRef<ReCAPTCHA>(null);
 	const [timeoutRef, setTimeoutRef] = useState<any>();
 	const [showCaptchaIsNotFilled, setShowCaptchaIsNotFilled] = useState<boolean>(false);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const MyTextArea = (props: FieldHookConfig<string>) => {
 		const [field, meta] = useField(props);
@@ -63,6 +64,7 @@ export default function SendMeAMessageForm() {
 				validationSchema={MessageSendSchema}
 				onSubmit={(values, { resetForm }) => {
 					if (recaptchaRef.current) {
+						setIsLoading(true);
 						clearAlerts();
 
 						const recaptchaValue =
@@ -95,6 +97,7 @@ export default function SendMeAMessageForm() {
 										clearAlerts();
 									}, 8000)
 								);
+								setIsLoading(false);
 							});
 					}
 				}}
@@ -181,7 +184,12 @@ export default function SendMeAMessageForm() {
 								className="btn btn-outline-light"
 								id="SendMessageBtn"
 							>
-								Send Message
+								<div className="button-content">
+									<span className="text">{isLoading ? "Sending..." : "Send Message"}</span>
+
+									{isLoading && (<img src="./images/loading-icon.gif" alt="loading" className="loading-icon"></img>)}
+									
+								</div>
 							</button>
 						</div>
 					</Form>

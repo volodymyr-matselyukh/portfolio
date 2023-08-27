@@ -21,6 +21,10 @@ function App() {
 
 	const router = createBrowserRouter([
 		{
+			path: "/api",
+			
+		},
+		{
 			path: "/",
 			element: (
 				<>

@@ -1,5 +1,5 @@
 const express = require('express');
-
+const mongoose = require('mongoose');
 const router = express.Router();
 
 const Message = require('../models/message');
@@ -16,11 +16,31 @@ async function handleCaptcha(captchaToken) {
 
 	const responseJson = await response.json();
 
+	console.log(responseJson);
+
 	if (!responseJson.success) {
 		const captchaError = new Error("Not a human");
 		captchaError.status = 400;
 
-		res.send(captchaError);
+		throw captchaError;
+	}
+}
+
+const saveMessage = async (message) => {
+
+	try {
+		const connectionUri = 'mongodb+srv://volodymyrmatselyukh:' + process.env.MONGO_ATLAS_PW + '@portfolio.m8gvq5q.mongodb.net?retryWrites=true&w=majority';
+
+		mongoose.connect(connectionUri, { 
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		});
+
+		await message.save();
+	}
+	catch (error) {
+		console.error("Error happened during saving a message.", error);
+		throw e;
 	}
 }
 
@@ -34,12 +54,16 @@ router.post("/", async (req, res, next) => {
 		message: params.message
 	});
 
-	await handleCaptcha(params.token);
+	try {
+		await handleCaptcha(params.token);
+	}
+	catch (error) {
+		return next(error);
+	}
 
-	sendEmail(message.name, message.email, message.message);
+	await sendEmail(message.name, message.email, message.message);
 
-	message
-		.save()
+	saveMessage(message)
 		.then(() => {
 			res.status(200).json({
 				message: "Success"

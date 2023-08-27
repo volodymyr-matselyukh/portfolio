@@ -1,13 +1,8 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 require('dotenv').config();
 
 const messageRoutes = require("./api/routes/message");
-
-const connectionUri = 'mongodb+srv://volodymyrmatselyukh:' + process.env.MONGO_ATLAS_PW + '@portfolio.m8gvq5q.mongodb.net/?retryWrites=true&w=majority';
-
-mongoose.connect(connectionUri);
 
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');

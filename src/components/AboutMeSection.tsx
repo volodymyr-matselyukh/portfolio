@@ -61,7 +61,7 @@ export default function AboutMeSection({ aboutMeSectionRef }: IProps) {
 				<p className="download-resume text-center">
 					<a
 						className="btn btn-primary"
-						href="https://app.enhancv.com/share/0ff917d8/?utm_medium=growth&utm_campaign=share-resume&utm_source=dynamic"
+						href="https://drive.google.com/file/d/1DwOfXRLCLmXbd_tEqASSyzV3ztQaPrwo/view?usp=sharing"
 						target="_blank"
 						title="View/Download Resume"
 					>
