@@ -1,6 +1,6 @@
 import { Formik, Form, Field, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
-import sendEmail from "../api/emailService";
+import sendEmail from "../../api/emailService";
 import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 

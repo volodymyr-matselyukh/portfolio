@@ -137,11 +137,19 @@ body .top-section .overlay {
   width: 100%;
   z-index: 0;
 }
+body .intro-image-block {
+  position: relative;
+}
 body .intro-image-block__image {
   width: 300px;
   height: auto;
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+body .intro-image-block__image--animated {
+  animation-name: gates-open;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
 body .intro {
   text-align: center;
@@ -486,6 +494,65 @@ body footer p {
   user-select: none;
   margin-bottom: 5px;
 }
+@keyframes gates-open {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(90deg);
+    visibility: hidden;
+  }
+}
+@keyframes login-show {
+  from {
+    transform: rotateY(270deg);
+  }
+  to {
+    transform: rotateY(360deg);
+    display: block;
+  }
+}
+.top-section .login {
+  width: 300px;
+  height: 300px;
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 150px);
+  transform: rotateY(270deg);
+}
+.top-section .login .login-form {
+  display: none;
+}
+.top-section .login--animated {
+  animation-name: login-show;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+}
+.top-section .login--animated .login-form {
+  display: block;
+  position: relative;
+  top: 50px;
+}
+.top-section .login--animated .login-form .recapcha {
+  display: flex;
+  justify-content: center;
+}
+.top-section .login--animated .login-form .form-control-input {
+  width: 150px;
+}
+.top-section .login--animated .login-form .label {
+  color: white;
+}
+.top-section .login--animated .login-form .login-password-block {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  position: relative;
+  right: 50px;
+}
 .about-me-section :not(:last-child).technology-icon {
   margin-right: 5px;
 }
@@ -803,6 +870,12 @@ body footer p {
   display: flex;
   justify-content: center;
   padding-top: 20px;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 .pf-block {
   width: 800px;

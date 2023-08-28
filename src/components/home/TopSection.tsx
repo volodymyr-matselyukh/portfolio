@@ -1,17 +1,36 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { useState } from 'react';
+import LoginForm from './LoginForm';
 
 interface IProps{
 	scrollToAboutMeSection: () => void;
 }
 
 export default function TopSection({scrollToAboutMeSection}: IProps) {
+
+	const [isAnimated, setIsAnimated] = useState<boolean>(false);
+
 	return (
 		<div id="TopSection" className="top-section">
 			<div className="top-section__overlay overlay">
 				<div className="overlay__intro intro" user-itemscope="true" user-itemtype="http://schema.org/Person">
 					<div className="intro__intro-image-block intro-image-block">
-						<img className="intro-image-block__image" src="./images/volodymyr_matseliukh_photo.jpg" alt="Volodymyr Matseliukh" height="439" width="400" />
+						<img className={isAnimated ? "intro-image-block__image intro-image-block__image--animated" : "intro-image-block__image" } 
+							src="./images/volodymyr_matseliukh_photo.png" 
+							alt="Volodymyr Matseliukh" 
+							height="439" 
+							width="400"
+							onClick={ (e) => {
+								if(e.detail === 5)
+								{
+									setIsAnimated(true);
+								}
+							}} />
+
+						<div className={isAnimated ? "login login--animated" : "login"}>
+							<LoginForm />
+						</div>
 					</div>
 					<div className="intro__intro-text-block intro-text-block">
 						<h1 className="intro-text-block__text" >

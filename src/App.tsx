@@ -1,14 +1,17 @@
 import { useRef } from "react";
-import AboutMeSection from "./components/AboutMeSection";
-import ExperienceSection from "./components/ExperienceSection";
-import TopSection from "./components/TopSection";
-import MainMenu from "./components/MainMenu";
-import ProjectsSection from "./components/ProjectsSection";
+import AboutMeSection from "./components/home/AboutMeSection";
+import ExperienceSection from "./components/home/ExperienceSection";
+import TopSection from "./components/home/TopSection";
+import MainMenu from "./components/home/MainMenu";
+import ProjectsSection from "./components/home/ProjectsSection";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ErrorPage from "./components/ErrorPage";
-import ProjectItem from "./components/ProjectItem";
-import ContactsSection from "./components/ContactsSection";
-import FooterSection from "./components/FooterSection";
+import ErrorPage from "./components/home/ErrorPage";
+import ProjectItem from "./components/home/ProjectItem";
+import ContactsSection from "./components/home/ContactsSection";
+import FooterSection from "./components/home/FooterSection";
+import Article from "./components/blog/Article";
+import Menu from "./components/blog/Menu";
+import Dashboard from "./components/blog/Dashboard";
 
 function App() {
 	const aboutMeSectionRef = useRef<null | HTMLDivElement>(null);
@@ -21,8 +24,17 @@ function App() {
 
 	const router = createBrowserRouter([
 		{
-			path: "/api",
-			
+			path: "/blog/:articleName",
+			element: (
+				<>
+					<Menu />
+					<Article />
+				</>
+			),
+		},
+		{
+			path: "/blog",
+			element: <Dashboard />
 		},
 		{
 			path: "/",
@@ -42,8 +54,8 @@ function App() {
 					</div>
 				</>
 			),
-			errorElement: <ErrorPage />
-		}
+			errorElement: <ErrorPage />,
+		},
 	]);
 
 	return <RouterProvider router={router} />;

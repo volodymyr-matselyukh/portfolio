@@ -1,4 +1,4 @@
-import { experience } from "../resources/experience";
+import { experience } from "../../resources/experience";
 
 export default function ExperienceSection() {
 	return (

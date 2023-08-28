@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { projects } from "../resources/projects";
-import { store } from "../stores/store";
+import { projects } from "../../resources/projects";
+import { store } from "../../stores/store";
 
 export default function ProjectsSection() {
 	const { projectItemStore } = store;

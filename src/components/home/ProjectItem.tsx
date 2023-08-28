@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
-import { store } from "../stores/store";
-import { projects } from "../resources/projects";
+import { store } from "../../stores/store";
+import { projects } from "../../resources/projects";
 
 export default observer(function ProjectItem() {
 	const { projectItemStore } = store;

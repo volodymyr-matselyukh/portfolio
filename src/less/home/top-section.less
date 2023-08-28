@@ -1,0 +1,75 @@
+//main: "../main.less"
+
+@keyframes gates-open {
+	from {
+		transform: rotateY(0deg);
+	}
+
+	to {
+		transform: rotateY(90deg);
+		visibility: hidden;
+	}
+}
+
+@keyframes login-show {
+	from {
+		transform: rotateY(270deg);
+	}
+
+	to {
+		transform: rotateY(360deg);
+		display: block;
+	}
+}
+
+.top-section {
+	.login {
+		width: 300px;
+		height: 300px;
+		background-color: black;
+		border-radius: 50%;
+		position: absolute;
+		top: 0;
+		left: calc(50% - 150px);
+		transform: rotateY(270deg);
+
+		.login-form {
+			display: none;
+		}
+
+		&--animated {
+			animation-name: login-show;
+			animation-duration: 1s;
+			animation-delay: 1s;
+			animation-fill-mode: forwards;
+
+			.login-form {
+				display: block;
+
+				position: relative;
+				top: 50px;
+
+				.recapcha {
+					display: flex;
+					justify-content: center;
+				}
+
+				.form-control-input {
+					width: 150px;
+				}
+
+				.label {
+					color: white;
+				}
+
+				.login-password-block {
+					display: flex;
+					flex-direction: column;
+					align-items: end;
+					position: relative;
+					right: 50px;
+				}
+			}
+		}
+	}
+}
