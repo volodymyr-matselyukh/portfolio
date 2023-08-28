@@ -32,12 +32,14 @@ function App() {
 					<TopSection
 						scrollToAboutMeSection={clickOnScrollingButton}
 					/>
-					<MainMenu />
-					<AboutMeSection aboutMeSectionRef={aboutMeSectionRef} />
-					<ExperienceSection />
-					<ProjectsSection />
-					<ContactsSection />
-					<FooterSection />
+					<div className="page-container">
+						<MainMenu />
+						<AboutMeSection aboutMeSectionRef={aboutMeSectionRef} />
+						<ExperienceSection />
+						<ProjectsSection />
+						<ContactsSection />
+						<FooterSection />
+					</div>
 				</>
 			),
 			errorElement: <ErrorPage />

@@ -114,16 +114,23 @@ body .pf-block-text {
 body .hidden {
   display: none;
 }
+body .page-container {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+}
 body .top-section {
   background: url(/images/cover_blurred.jpg) no-repeat;
   background-size: cover;
-  height: 100vh;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 body .top-section .overlay {
   background-color: rgba(60, 77, 95, 0.5);
   background-image: url(/images/pattern.png);
   background-repeat: repeat;
-  height: 100vh;
+  height: 100%;
   left: 0;
   position: absolute;
   top: 0;

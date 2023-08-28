@@ -49,6 +49,7 @@ html {
 }
 
 body {
+
 	margin: 0;
 	padding: 0;
 
@@ -140,16 +141,24 @@ body {
 		display: none;
 	}
 
+	.page-container{
+		position: absolute;
+		top: 100%;
+		width: 100%;
+	}
+
 	.top-section {
 		background: url(/images/cover_blurred.jpg) no-repeat;
 		background-size: cover;
-		height: 100vh;
+		position: absolute;
+		height: 100%;
+		width: 100%;		
 
 		.overlay {
 			background-color: rgba(60, 77, 95, 0.5);
 			background-image: url(/images/pattern.png);
 			background-repeat: repeat;
-			height: 100vh;
+			height: 100%;
 			left: 0;
 			position: absolute;
 			top: 0;

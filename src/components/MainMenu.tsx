@@ -26,19 +26,19 @@ export default function MainMenu() {
 					</button>
 
 					<div className="content__list">
-						<a href="#About" title="About" className="nav-item">
+						<a href="#About" title="About" className="nav-item" onClick={burgerIconClickHandler}>
 							About
 						</a>
 
-						<a href="#Experience" title="Experience" className="nav-item">
+						<a href="#Experience" title="Experience" className="nav-item" onClick={burgerIconClickHandler}>
 							Experience
 						</a>
 
-						<a href="#Portfolio" title="Portfolio" className="nav-item">
+						<a href="#Portfolio" title="Portfolio" className="nav-item" onClick={burgerIconClickHandler}>
 							Portfolio
 						</a>
 
-						<a href="#Contact" title="Contact" className="nav-item">
+						<a href="#Contacts" title="Contact" className="nav-item" onClick={burgerIconClickHandler}>
 							Contact
 						</a>
 					</div>
@@ -46,19 +46,19 @@ export default function MainMenu() {
 
 				{isBurgerMenuVisible && (
 					<div className="burger-content">
-						<a href="#About" title="About" className="nav-item">
+						<a href="#About" title="About" className="nav-item" onClick={burgerIconClickHandler}>
 							About
 						</a>
 
-						<a href="#Experience" title="Experience" className="nav-item">
+						<a href="#Experience" title="Experience" className="nav-item" onClick={burgerIconClickHandler}>
 							Experience
 						</a>
 
-						<a href="#Portfolio" title="Portfolio" className="nav-item">
+						<a href="#Portfolio" title="Portfolio" className="nav-item" onClick={burgerIconClickHandler}>
 							Portfolio
 						</a>
 
-						<a href="#Contact" title="Contact" className="nav-item">
+						<a href="#Contacts" title="Contact" className="nav-item" onClick={burgerIconClickHandler}>
 							Contact
 						</a>
 					</div>

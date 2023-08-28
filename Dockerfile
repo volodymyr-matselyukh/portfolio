@@ -9,7 +9,6 @@ COPY babel.config.js ./
 COPY babel-plugin-macros.config.js ./
 COPY tsconfig.json ./
 COPY .env ./
-COPY commands-list.sh ./
 
 COPY src ./src
 COPY public ./public
