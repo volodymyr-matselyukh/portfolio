@@ -553,6 +553,21 @@ body footer p {
   position: relative;
   right: 50px;
 }
+.top-section .logged-in-form {
+  color: white;
+  top: 100px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.top-section .logged-in-form .button-row {
+  position: relative;
+  top: 70px;
+}
+.top-section .logged-in-form .link-to-blog {
+  color: blue;
+  margin-top: 10px;
+}
 .about-me-section :not(:last-child).technology-icon {
   margin-right: 5px;
 }

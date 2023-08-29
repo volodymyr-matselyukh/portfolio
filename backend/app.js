@@ -1,8 +1,18 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
+const mongoose = require('mongoose');
+const { createAdminUser } = require('../backend/services/UserService');
 
 const messageRoutes = require("./api/routes/message");
+const connectionUri = 'mongodb+srv://volodymyrmatselyukh:' + process.env.MONGO_ATLAS_PW + '@portfolio.m8gvq5q.mongodb.net?retryWrites=true&w=majority';
+
+mongoose.connect(connectionUri, { 
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+});
+
+createAdminUser().then(() => console.log('admin created'));
 
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');

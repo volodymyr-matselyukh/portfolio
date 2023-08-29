@@ -1,0 +1,8 @@
+{
+	"jestRunIt.testMatchPatterns": [
+		"**/*.{spec,test}.{js,ts,jsx,tsx}",
+		"**/__test__/*.{js,ts,jsx,tsx}",
+		"**/tests/**/*.{js,ts,jsx,tsx}",
+		"./backend/tests/services/UserService.test.js"
+	]
+}

@@ -12,6 +12,7 @@ import FooterSection from "./components/home/FooterSection";
 import Article from "./components/blog/Article";
 import Menu from "./components/blog/Menu";
 import Dashboard from "./components/blog/Dashboard";
+import AddEditArticle from "./components/blog/AddEditArticle";
 
 function App() {
 	const aboutMeSectionRef = useRef<null | HTMLDivElement>(null);
@@ -24,7 +25,16 @@ function App() {
 
 	const router = createBrowserRouter([
 		{
-			path: "/blog/:articleName",
+			path: "/article/edit/:articleId",
+			element: (
+				<>
+					<Menu />
+					<AddEditArticle />
+				</>
+			),
+		},
+		{
+			path: "/article/:articleName",
 			element: (
 				<>
 					<Menu />

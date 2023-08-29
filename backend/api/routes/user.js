@@ -2,9 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 
-const Message = require('../../database/models/message');
-
-const sendEmail = require('../../services/EmailService');
+const User = require('../../database/models/user');
 
 async function handleCaptcha(captchaToken) {
 	const response = await fetch(
@@ -29,6 +27,13 @@ async function handleCaptcha(captchaToken) {
 const saveMessage = async (message) => {
 
 	try {
+		const connectionUri = 'mongodb+srv://volodymyrmatselyukh:' + process.env.MONGO_ATLAS_PW + '@portfolio.m8gvq5q.mongodb.net?retryWrites=true&w=majority';
+
+		mongoose.connect(connectionUri, { 
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		});
+
 		await message.save();
 	}
 	catch (error) {
@@ -37,7 +42,7 @@ const saveMessage = async (message) => {
 	}
 }
 
-router.post("/", async (req, res, next) => {
+router.post("/signin", async (req, res, next) => {
 
 	const params = req.body;
 
