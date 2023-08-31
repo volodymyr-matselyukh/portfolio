@@ -1,9 +1,13 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { useParams } from "react-router-dom";
 import * as Yup from "yup";
 import useArticle from "../../api/articlesService";
-import { useState } from "react";
-import MyTextArea from "../controls/MyTextArea";
+import { useEffect, useState } from "react";
+import MyTextInput from "../controls/MyTextInput";
+import MyFormikTextArea from "../controls/MyFormikTextArea";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ArticleInList } from "../../api/models/ArticleInList";
 
 const MessageSendSchema = Yup.object().shape({
 	name: Yup.string().required("Required"),
@@ -13,125 +17,92 @@ const MessageSendSchema = Yup.object().shape({
 });
 
 export default function AddEditArticle() {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [status, setStatus] = useState<string>("");
 	const { articleId } = useParams();
-	const { addArticle } = useArticle();
+	const { addArticle, getArticle } = useArticle();
+
+	const [article, setArticle] = useState<ArticleInList>();
+
+	useEffect(() => {
+		if (articleId && articleId != "0") {
+			getArticle(articleId).then((article: any) => {
+				console.log("article", article);
+
+				article.keywords = article?.keywords?.join(",");
+
+				setArticle(article);
+			});
+		}
+	}, []);
 
 	return (
 		<div className="blog">
 			<div className="pf-block">
 				<Formik
+					enableReinitialize
 					initialValues={{
-						name: "",
-						content: "",
-						keywords: "",
-						description: "",
+						id: article?.id || "",
+						name: article?.name || "",
+						content: article?.content || "",
+						keywords: article?.keywords || "",
+						description: article?.description || "",
 					}}
 					validationSchema={MessageSendSchema}
 					onSubmit={async (values, { resetForm }) => {
-						setIsLoading(true);
-
-						try {
-							await addArticle(
+						toast.promise(
+							addArticle(
+								values.id,
 								values.name,
 								values.content,
 								values.keywords,
 								values.description
-							);
-							setStatus("Success");
-							resetForm();
-						} catch (err: any) {
-							console.error("error happened", err);
-							const errorMessage = err.response?.data?.message || "Internal error happened. Try later."
-							setStatus(errorMessage);
-						} finally {
-							setIsLoading(false);
-						}
+							).then((_) => 
+							{
+								setArticle({
+									id: values.id,
+									name: values.name,
+									content: values.content,
+									keywords: values.keywords,
+									description: values.description
+								} as ArticleInList);
+								resetForm();
+							}),
+							{
+								pending: article ? "Updating an article" : "Adding an article",
+								success: article ? "Article updated" : "Article added 👌",
+								error: "Error happened 🤯",
+							}
+						);
 					}}
 				>
-					{({ errors, touched }) => (
-						<Form className="message-form">
-							<div className="article-fields-block">
-								<div className="input-block">
-									<label className="label" htmlFor="name">
-										Name
-									</label>
-									<Field
-										id="name"
-										name="name"
-										type="text"
-										autoComplete="name"
-										className="form-control-input"
-										placeholder="john.doe@gmail.com"
-										max={50}
-									/>
-									{errors.name && touched.name ? (
-										<span className="text-danger">
-											{errors.name}
-										</span>
-									) : null}
-								</div>
+					{() => (
+						<Form className="message-form ui form">
+							<input type="hidden" name="id" value={article?.id} />
 
-								<div className="input-block">
-									<label className="label" htmlFor="content">
-										Content
-									</label>
-									<MyTextArea
-										id="content"
-										name="content"
-										className="form-control-text-area"
-										placeholder="html content here"
-										rows={20}
-										maxLength={50000}
-									></MyTextArea>
-									{errors.content && touched.content ? (
-										<span className="text-danger">
-											{errors.content}
-										</span>
-									) : null}
-								</div>
+							<MyTextInput
+								name="name"
+								placeholder="article name here"
+								label="Article name"
+							/>
 
-								<div className="input-block">
-									<label className="label" htmlFor="keywords">
-										Keywords
-									</label>
-									<Field
-										id="keywords"
-										name="keywords"
-										type="text"
-										autoComplete="keywords"
-										className="form-control-input"
-										placeholder="keywords for meta tags"
-										max={50}
-									/>
-									{errors.keywords && touched.keywords ? (
-										<span className="text-danger">
-											{errors.keywords}
-										</span>
-									) : null}
-								</div>
+							<MyFormikTextArea
+								name="content"
+								label="Content"
+								placeholder="Html allowed"
+								rows={10}
+							/>
 
-								<div className="input-block">
-									<label className="label" htmlFor="description">
-										Description
-									</label>
-									<Field
-										id="description"
-										name="description"
-										type="text"
-										autoComplete="description"
-										className="form-control-input"
-										placeholder="description for meta tags"
-										max={50}
-									/>
-									{errors.description && touched.description ? (
-										<span className="text-danger">
-											{errors.description}
-										</span>
-									) : null}
-								</div>
-							</div>
+							<MyTextInput
+								name="keywords"
+								placeholder="Comma separated string i.e. html, fly.io, continues delivery"
+								label="Keywords"
+							/>
+
+							<MyFormikTextArea
+								name="description"
+								label="Description"
+								placeholder="Article description"
+								rows={3}
+							/>
 
 							<div className="create-button-row">
 								<button
@@ -141,25 +112,11 @@ export default function AddEditArticle() {
 								>
 									<div className="button-content">
 										<span className="text">
-											{isLoading
-												? "Creating..."
-												: "Create"}
+											{!!article ? "Update" : "Create"}
 										</span>
-
-										{isLoading && (
-											<img
-												src="./images/loading-icon.gif"
-												alt="loading"
-												className="loading-icon"
-											></img>
-										)}
 									</div>
 								</button>
-								{status && (
-									<span className="text-danger">
-										{status}
-									</span>
-								)}
+								<ToastContainer />
 							</div>
 						</Form>
 					)}

@@ -26,7 +26,7 @@ const addJwtCookieToResponse = (token, response) => {
 		sameSite: 'Lax', 
 		secure: true,
 		path: '/',
-		maxAge: 1000 * 30 * 1                 /* 10 minutes */
+		maxAge: 1000 * 60 * 10                 /* 10 minutes */
 	};
 
 	if(process.env.COOKIE_DOMAIN)

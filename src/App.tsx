@@ -39,6 +39,7 @@ function App() {
 				<>
 					<Menu />
 					<Article />
+					<FooterSection />
 				</>
 			),
 		},
@@ -48,6 +49,7 @@ function App() {
 				<>
 					<Menu />
 					<Dashboard />
+					<FooterSection />
 				</>
 			),
 		},

@@ -2,8 +2,9 @@ const jwt = require('jsonwebtoken');
 
 const extractTokenDataFromRequest = (req) => {
 	const token = readTokenFromRequest(req, "jwt");
+	const refreshToken = readTokenFromRequest(req, "jwt_refresh");
 
-	if(!token)
+	if(!token && !refreshToken)
 	{
 		return null;
 	}
@@ -16,7 +17,13 @@ const extractTokenDataFromRequest = (req) => {
 	}
 	catch(err)
 	{
-		console.error("Error verifying token", err);
+		try{
+			const refreshTokenData = jwt.verify(refreshToken, process.env.JWT_REFRESH_PRIVATE_KEY);
+			return refreshTokenData;
+		}
+		catch{
+			console.error("Error verifying both tokens", err);
+		}
 	}
 
 	return null;

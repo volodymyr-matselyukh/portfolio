@@ -1,12 +1,12 @@
 import useAxios from "./agent";
-import { ArticleList } from "./models/ArticleInList";
+import { ArticleInList, ArticleList } from "./models/ArticleInList";
 
 
 export default function useArticle(){
 	const requests = useAxios();
 
-	const addArticle = async (name: string, content:string, keywords:string, description: string) => {
-		const result = await requests.post('article', { name, content, keywords, description });		
+	const addArticle = async (id: string, name: string, content:string, keywords:string, description: string) => {
+		const result = await requests.post('article', { id, name, content, keywords, description });		
 	
 		return result;
 	}
@@ -17,5 +17,17 @@ export default function useArticle(){
 		return result as ArticleList;
 	}
 
-	return { addArticle, listArticles };
+	const getArticle = async (id: string) => {
+		const result = await requests.get(`article/${id}`);
+	
+		return result as ArticleInList;
+	}
+
+	const getArticleByName = async (name: string) => {
+		const result = await requests.get(`article/getbyname/${name}`);
+	
+		return result as ArticleInList;
+	}
+
+	return { addArticle, listArticles, getArticle, getArticleByName };
 }

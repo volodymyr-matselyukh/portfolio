@@ -43,22 +43,18 @@
 .menu .burger-content {
   display: none;
 }
-.blog .articles-list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-around;
+#root {
+  height: 100%;
 }
-.blog .article {
-  flex-basis: 300px;
-  height: 150px;
-  align-items: center;
-  display: flex;
-  border: 2px dashed black;
-  margin: 10px;
-  padding: 10px;
-  background: antiquewhite;
-  font-size: 20px;
+.blog {
+  min-height: calc(100% - 170px);
+}
+.blog .pf-block {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.blog .articles-list {
+  margin-top: 20px;
 }
 .blog .add-article {
   display: flex;
@@ -71,25 +67,41 @@
   width: 50px;
   display: block;
 }
-.blog .pf-block {
-  padding-top: 60px;
-  padding-bottom: 60px;
+.blog .create-button-row {
+  text-align: right;
+  padding: 20px 0;
 }
-.blog .input-block {
+.blog .article {
+  flex-basis: 300px;
+  justify-content: space-between;
+  align-items: stretch;
+  display: flex;
+  font-size: 18px;
+}
+.blog .article:hover .header {
+  text-shadow: 1px 1px black;
+}
+.blog .article-modify:hover {
+  color: black;
+  cursor: alias;
+}
+.blog .article-footer {
   display: flex;
 }
-.blog .input-block .label {
+.blog .article-footer .article-date {
+  margin-left: auto;
+}
+.blog .article .input-block {
+  display: flex;
+}
+.blog .article .input-block .label {
   width: 100px;
   text-align: right;
   display: block;
 }
-.blog .input-block .form-control-input,
-.blog .input-block .form-control-text-area {
+.blog .article .input-block .form-control-input,
+.blog .article .input-block .form-control-text-area {
   margin-left: 20px;
   width: 70%;
-}
-.blog .create-button-row {
-  text-align: center;
-  padding: 20px 0;
 }
 /*# sourceMappingURL=./blog.css.map */

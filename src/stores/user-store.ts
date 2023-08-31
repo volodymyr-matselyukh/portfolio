@@ -3,7 +3,7 @@ import { makeAutoObservable, reaction } from "mobx";
 const jwtTokenCookieName = "jwt";
 
 export class UserStore {
-	authCookieSet: boolean = false;
+	authCookieSet: boolean = false || !!this.getCookie(jwtTokenCookieName);
 	name: string | null = window.localStorage.getItem("username");
 
 	constructor() {

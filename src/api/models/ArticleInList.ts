@@ -6,5 +6,8 @@ export interface ArticleInList{
 	name: string,
 	id: string,
 	date: Date,
-	isModifyable: boolean
+	isModifyable: boolean,
+	description: string,
+	content: string,
+	keywords: string
 }

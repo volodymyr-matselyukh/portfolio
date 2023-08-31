@@ -1,31 +1,27 @@
 //main: "../blog.less"
 
+#root{
+	height: 100%;
+}
+
 .blog {
 
+	min-height: calc(100% - 170px);
+
+	.pf-block {
+		padding-top: 60px;
+		padding-bottom: 60px;
+	}
+
 	.articles-list {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: space-around;
+		margin-top: 20px;
 	}
 
-	.article {
-		flex-basis: 300px;
-		height: 150px;
-		align-items: center;
-		display: flex;
-		border: 2px dashed black;
-		margin: 10px;
-		padding: 10px;
-		background: antiquewhite;
-		font-size: 20px;
-	}
-
-	.add-article{
+	.add-article {
 		display: flex;
 		justify-content: right;
 
-		&__button{
+		&__button {
 			background: url(/images/add-icon_50x50.png) no-repeat;
 			background-size: cover;
 			height: 50px;
@@ -34,30 +30,53 @@
 		}
 	}
 
-	.pf-block{
-		padding-top: 60px;
-		padding-bottom: 60px;
-	}
-
-	.input-block
-	{
-		display: flex;
-
-		.label{
-			width: 100px;
-			text-align: right;
-			display: block;
-		}
-
-		.form-control-input,
-		.form-control-text-area{
-			margin-left: 20px;
-			width: 70%;
-		}
-	}
-
-	.create-button-row{
-		text-align: center;
+	.create-button-row {
+		text-align: right;
 		padding: 20px 0;
+	}
+	
+	.article {
+		flex-basis: 300px;
+		justify-content: space-between;
+		align-items: stretch;
+		display: flex;
+		font-size: 18px;
+
+		&:hover .header
+		{
+			text-shadow: 1px 1px black;
+		}
+
+		&-modify {
+
+			&:hover {
+				color: black;
+				cursor: alias;
+			}
+		}
+
+		&-footer{
+			display: flex;
+
+			.article-date{
+				margin-left:auto;
+			}
+		}
+
+		.input-block {
+			display: flex;
+
+			.label {
+				width: 100px;
+				text-align: right;
+				display: block;
+			}
+
+			.form-control-input,
+			.form-control-text-area {
+				margin-left: 20px;
+				width: 70%;
+			}
+		}
 	}
 }

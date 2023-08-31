@@ -8,12 +8,6 @@ const validateAndRefreshTokens = async (req, res) => {
 	const token = readTokenFromRequest(req, "jwt");
 	const refreshToken = readTokenFromRequest(req, "jwt_refresh");
 
-	if(!refreshToken)
-	{
-		//Unauthorized user, neither token check nor access token renewal needed
-		return;
-	}
-
 	try
 	{
 		const tokenData = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
@@ -39,10 +33,21 @@ const validateAndRefreshTokens = async (req, res) => {
 	}
 }
 
+const validateAndRefreshTokensIfPossible = async (req, res) => {
+	const refreshToken = readTokenFromRequest(req, "jwt_refresh");
+	if(!refreshToken)
+	{
+		//Unauthorized user, neither token check nor access token renewal needed
+		return;
+	}
+
+	await validateAndRefreshTokens(req, res);
+}
+
 const validateToken = async (req, res, next) => {
-	
+
 	try{
-		validateAndRefreshTokens(req);
+		await validateAndRefreshTokens(req, res);
 	}
 	catch(err)
 	{
@@ -53,4 +58,4 @@ const validateToken = async (req, res, next) => {
 	next();
 }
 
-module.exports = {validateToken,validateAndRefreshTokens};
+module.exports = {validateToken, validateAndRefreshTokens, validateAndRefreshTokensIfPossible};
