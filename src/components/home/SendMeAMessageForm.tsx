@@ -1,8 +1,9 @@
 import { Formik, Form, Field, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
-import sendEmail from "../../api/emailService";
 import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import useEmail from "../../api/emailService";
+import MyTextArea from "../controls/MyTextArea";
 
 const MessageSendSchema = Yup.object().shape({
 	name: Yup.string()
@@ -26,21 +27,7 @@ export default function SendMeAMessageForm() {
 	const [timeoutRef, setTimeoutRef] = useState<any>();
 	const [showCaptchaIsNotFilled, setShowCaptchaIsNotFilled] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-
-	const MyTextArea = (props: FieldHookConfig<string>) => {
-		const [field, meta] = useField(props);
-
-		return (
-			<textarea
-				className={props.className}
-				placeholder={props.placeholder}
-				rows={4}
-				id={props.id}
-				maxLength={500}
-				{...field}
-			></textarea>
-		);
-	};
+	const sendEmail = useEmail();
 
 	useEffect(() => {
 		return () => {
@@ -156,6 +143,7 @@ export default function SendMeAMessageForm() {
 									name="message"
 									className="form-control-text-area"
 									placeholder="Hi, I have a question to you..."
+									rows={4}
 								></MyTextArea>
 								{errors.message && touched.message ? (
 									<span className="text-danger">

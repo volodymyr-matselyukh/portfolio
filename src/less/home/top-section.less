@@ -25,9 +25,10 @@
 .top-section {
 	.login {
 		width: 300px;
-		height: 300px;
+		height: 325px;
 		background-color: black;
-		border-radius: 50%;
+		border: 2px dashed white;
+		outline: 5px solid white;
 		position: absolute;
 		top: 0;
 		left: calc(50% - 150px);
@@ -47,9 +48,10 @@
 				display: block;
 
 				position: relative;
-				top: 50px;
+				top: 25px;
 
 				.recapcha {
+					margin-top: 10px;
 					display: flex;
 					justify-content: center;
 				}
@@ -69,11 +71,19 @@
 					position: relative;
 					right: 50px;
 				}
+
+				.text-danger {
+					display: block;
+				}
+
+				.btn:hover {
+					cursor: pointer;
+				}
 			}
 		}
 	}
 
-	.logged-in-form{
+	.logged-in-form {
 		color: white;
 
 		top: 100px;
@@ -81,7 +91,7 @@
 		display: flex;
 		flex-direction: column;
 
-		.button-row{
+		.button-row {
 			position: relative;
 			top: 70px;
 		}

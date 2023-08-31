@@ -44,7 +44,24 @@ function App() {
 		},
 		{
 			path: "/blog",
-			element: <Dashboard />
+			element: (
+				<>
+					<Menu />
+					<Dashboard />
+				</>
+			),
+		},
+		{
+			path: "/unauthorized",
+			element: <ErrorPage statusCode={403} />,
+		},
+		{
+			path: "/uknown",
+			element: <ErrorPage statusCode={401} />,
+		},
+		{
+			path: "/internal-error",
+			element: <ErrorPage statusCode={500} />,
 		},
 		{
 			path: "/",
@@ -64,7 +81,7 @@ function App() {
 					</div>
 				</>
 			),
-			errorElement: <ErrorPage />,
+			errorElement: <ErrorPage statusCode={404} />,
 		},
 	]);
 

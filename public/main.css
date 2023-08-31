@@ -514,9 +514,10 @@ body footer p {
 }
 .top-section .login {
   width: 300px;
-  height: 300px;
+  height: 325px;
   background-color: black;
-  border-radius: 50%;
+  border: 2px dashed white;
+  outline: 5px solid white;
   position: absolute;
   top: 0;
   left: calc(50% - 150px);
@@ -534,9 +535,10 @@ body footer p {
 .top-section .login--animated .login-form {
   display: block;
   position: relative;
-  top: 50px;
+  top: 25px;
 }
 .top-section .login--animated .login-form .recapcha {
+  margin-top: 10px;
   display: flex;
   justify-content: center;
 }
@@ -552,6 +554,12 @@ body footer p {
   align-items: end;
   position: relative;
   right: 50px;
+}
+.top-section .login--animated .login-form .text-danger {
+  display: block;
+}
+.top-section .login--animated .login-form .btn:hover {
+  cursor: pointer;
 }
 .top-section .logged-in-form {
   color: white;
@@ -816,14 +824,6 @@ body footer p {
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.contact-me .btn .button-content {
-  display: flex;
-}
-.contact-me .btn .button-content .loading-icon {
-  display: block;
-  width: 15px;
-  height: 15px;
-}
 .contact-me .button-row {
   padding: 20px 0 10px;
 }
@@ -844,9 +844,6 @@ body footer p {
 .contact-me .message-form .label {
   display: inline-block;
   margin: 10px;
-}
-.contact-me .message-form .text-danger {
-  color: red;
 }
 .contact-me .alert {
   position: fixed;
@@ -1136,5 +1133,22 @@ body footer p {
     background-size: 15px;
     background-color: white;
   }
+}
+.btn {
+  display: inline-block;
+  user-select: none;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.btn .button-content {
+  display: flex;
+}
+.btn .button-content .loading-icon {
+  display: block;
+  width: 15px;
+  height: 15px;
+}
+.text-danger {
+  color: red;
 }
 /*# sourceMappingURL=./main.css.map */

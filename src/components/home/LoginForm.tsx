@@ -3,34 +3,46 @@ import { useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import { store } from "../../stores/store";
+import useLogin from "../../api/userService";
+import { observer } from "mobx-react-lite";
 
 const MessageSendSchema = Yup.object().shape({
-	login: Yup.string().required("Required"),
+	email: Yup.string().required("Required"),
 	password: Yup.string().required("Required"),
 });
 
-export default function LoginForm() {
+export default observer(function LoginForm() {
 	const recaptchaRef = useRef<ReCAPTCHA>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
-	const [userName, setUserName] = useState<string>("Volodymyr");
+
+	const [loginError, setLoginError] = useState<string>("");
+	const {login, logout} = useLogin();
+
+	const { userStore } = store;
+	const { isLoggedIn, userName } = userStore;
+
 	const [showCaptchaIsNotFilled, setShowCaptchaIsNotFilled] =
 		useState<boolean>(false);
+
+	const logOutHandler = () => {
+		logout();
+	}
 
 	const getLoginForm = () => {
 		return (
 			<div className="login-form">
 				<Formik
 					initialValues={{
-						name: "",
 						email: "",
-						message: "",
+						password: "",
 					}}
 					validationSchema={MessageSendSchema}
-					onSubmit={(values, { resetForm }) => {
-						if (recaptchaRef.current) {
-							setIsLoading(true);
+					onSubmit={async (values, { resetForm }) => {
 
+						setLoginError("");
+
+						if (recaptchaRef.current) {
 							const recaptchaValue =
 								recaptchaRef.current.getValue() || "";
 
@@ -39,29 +51,17 @@ export default function LoginForm() {
 								return;
 							}
 
-							// login(
-							// 	values.name,
-							// 	values.email,
-							// 	values.message,
-							// 	recaptchaValue
-							// )
-							// 	.then((_) => {
-							// 		setSuccessAlertVisible(true);
-							// 		resetForm();
-							// 	})
-							// 	.catch((_) => {
-							// 		setErrorAlertVisible(true);
-							// 	})
-							// 	.finally(() => {
-							// 		recaptchaRef.current?.reset();
+							setIsLoading(true);
 
-							// 		setTimeoutRef(
-							// 			setInterval(() => {
-							// 				clearAlerts();
-							// 			}, 8000)
-							// 		);
-							// 		setIsLoading(false);
-							// 	});
+							try {
+								await login(values.email, values.password);
+								resetForm();
+							} catch (err: any) {
+								console.error("error happened", err);
+								setLoginError(err.response.data.message);
+							} finally {
+								setIsLoading(false);
+							}
 						}
 					}}
 				>
@@ -69,41 +69,40 @@ export default function LoginForm() {
 						<Form className="message-form">
 							<div className="login-password-block">
 								<div className="input-block">
-									<label className="label" htmlFor="name">
-										Login
-									</label>
-									<Field
-										id="name"
-										name="name"
-										type="text"
-										autoComplete="name"
-										className="form-control-input"
-										placeholder="John Doe"
-										max={50}
-									/>
-									{errors.name && touched.name ? (
-										<span className="text-danger">
-											{errors.name}
-										</span>
-									) : null}
-								</div>
-
-								<div className="input-block">
 									<label className="label" htmlFor="email">
-										Password
+										Login
 									</label>
 									<Field
 										id="email"
 										name="email"
-										type="email"
+										type="text"
 										autoComplete="email"
 										className="form-control-input"
-										placeholder={"john.doe@gmail.com"}
+										placeholder="john.doe@gmail.com"
 										max={50}
 									/>
 									{errors.email && touched.email ? (
 										<span className="text-danger">
 											{errors.email}
+										</span>
+									) : null}
+								</div>
+
+								<div className="input-block">
+									<label className="label" htmlFor="password">
+										Password
+									</label>
+									<Field
+										id="password"
+										name="password"
+										type="password"
+										autoComplete="password"
+										className="form-control-input"
+										max={50}
+									/>
+									{errors.password && touched.password ? (
+										<span className="text-danger">
+											{errors.password}
 										</span>
 									) : null}
 								</div>
@@ -149,6 +148,13 @@ export default function LoginForm() {
 										)}
 									</div>
 								</button>
+								{ loginError &&
+									(
+										<span className="text-danger">
+											{loginError}
+										</span>
+									)
+								}
 							</div>
 						</Form>
 					)}
@@ -161,13 +167,16 @@ export default function LoginForm() {
 		return (
 			<div className="logged-in-form">
 				<span className="welcome-text">Welcome, {userName}.</span>
-				<Link className="link-to-blog" to={"/blog"}>Go to blog dashboard.</Link>
+				<Link className="link-to-blog" to={"/blog"}>
+					Go to blog dashboard.
+				</Link>
 
 				<div className="button-row">
 					<button
-						type="submit"
+						type={"button"}
 						className="btn btn-outline-light"
 						id="SignOut"
+						onClick={logOutHandler}
 					>
 						<div className="button-content">
 							<span className="text">
@@ -188,5 +197,5 @@ export default function LoginForm() {
 		);
 	};
 
-	return <>{isAuthenticated ? getAuthenticatedUserForm() : getLoginForm()}</>;
-}
+	return <>{isLoggedIn ? getAuthenticatedUserForm() : getLoginForm()}</>;
+})

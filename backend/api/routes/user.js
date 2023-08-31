@@ -1,8 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+
 const router = express.Router();
+const { isCredentialsCorrect } = require('../../services/UserService');
+const { addAuthCookies } = require('../../services/JwtService');
 
 const User = require('../../database/models/user');
+
 
 async function handleCaptcha(captchaToken) {
 	const response = await fetch(
@@ -24,54 +29,57 @@ async function handleCaptcha(captchaToken) {
 	}
 }
 
-const saveMessage = async (message) => {
-
-	try {
-		const connectionUri = 'mongodb+srv://volodymyrmatselyukh:' + process.env.MONGO_ATLAS_PW + '@portfolio.m8gvq5q.mongodb.net?retryWrites=true&w=majority';
-
-		mongoose.connect(connectionUri, { 
-			useNewUrlParser: true,
-			useUnifiedTopology: true
-		});
-
-		await message.save();
-	}
-	catch (error) {
-		console.error("Error happened during saving a message.", error);
-		throw e;
-	}
-}
-
 router.post("/signin", async (req, res, next) => {
 
 	const params = req.body;
 
-	const message = new Message({
-		name: params.name,
-		email: params.email,
-		message: params.message
+	const existingUser = await User.findOne({ email: params.email }).exec();
+
+	if (!existingUser) {
+		return res.status(400).json({ "message": "Login or password invalid." });
+	}
+
+	const isPasswordCorrect = await isCredentialsCorrect(params.password, existingUser.password);
+
+	if (!isPasswordCorrect) {
+		return res.status(400).json({ "message": "Login or password invalid." });
+	}
+
+	addAuthCookies(existingUser._id, existingUser.name, res);
+
+	res.status(200).json({
+		"message": "Success",
+		"data": {
+			"userName": existingUser.name
+		}
 	});
 
-	try {
-		await handleCaptcha(params.token);
-	}
-	catch (error) {
-		return next(error);
-	}
+	// const message = new Message({
+	// 	name: params.name,
+	// 	email: params.email,
+	// 	message: params.message
+	// });
 
-	await sendEmail(message.name, message.email, message.message);
+	// try {
+	// 	await handleCaptcha(params.token);
+	// }
+	// catch (error) {
+	// 	return next(error);
+	// }
 
-	saveMessage(message)
-		.then(() => {
-			res.status(200).json({
-				message: "Success"
-			});
-		})
-		.catch(_ => {
-			var errorToThrow = new Error("Internal error");
-			errorToThrow.status = 500;
-			next(errorToThrow);
-		});
+	// await sendEmail(message.name, message.email, message.message);
+
+	// saveMessage(message)
+	// 	.then(() => {
+	// 		res.status(200).json({
+	// 			message: "Success"
+	// 		});
+	// 	})
+	// 	.catch(_ => {
+	// 		var errorToThrow = new Error("Internal error");
+	// 		errorToThrow.status = 500;
+	// 		next(errorToThrow);
+	// 	});
 });
 
 module.exports = router;
