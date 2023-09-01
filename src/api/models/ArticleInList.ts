@@ -9,5 +9,11 @@ export interface ArticleInList{
 	isModifyable: boolean,
 	description: string,
 	content: string,
-	keywords: string
+	keywords: string,
+	author: Author
+}
+
+export interface Author{
+	id: string,
+	name: string
 }

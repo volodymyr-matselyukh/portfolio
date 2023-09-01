@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useArticle from "../../api/articlesService";
 import { useEffect, useState } from "react";
 import { ArticleInList, ArticleList } from "../../api/models/ArticleInList";
@@ -7,7 +7,8 @@ import { store } from "../../stores/store";
 import { observer } from "mobx-react-lite";
 
 export default observer(function Dashboard() {
-	const { listArticles } = useArticle();
+	const navigate = useNavigate();
+	const { listMyArticles } = useArticle();
 	const { userStore } = store;
 
 	const { isLoggedIn } = userStore;
@@ -15,7 +16,7 @@ export default observer(function Dashboard() {
 	const [articles, setArticles] = useState<ArticleInList[]>([]);
 
 	useEffect(() => {
-		listArticles().then((articleList: ArticleList) =>
+		listMyArticles().then((articleList: ArticleList) =>
 			setArticles(articleList.articles)
 		);
 	}, []);
@@ -36,16 +37,9 @@ export default observer(function Dashboard() {
 				<div className="articles-list">
 					<Card.Group>
 						{articles.map((article) => (
-							// <div className="article" >
-							// 	{article.name}
-
-							// 	<span className="date">{new Date(article.date).toLocaleString()}</span>
-							// 	<span className="modify">{article.isModifyable}</span>
-							// </div>
-
 							<Card
 								link
-								href={`/article/${article.name}`}
+								href={`/article/edit/${article.id}`}
 								key={article.id}
 								className="article"
 							>
@@ -54,8 +48,6 @@ export default observer(function Dashboard() {
 									description={article.description}
 								/>
 								<Card.Content extra className="article-footer">
-									<span>{article.author.name}</span>
-
 									<div className="article-date">
 										<Icon name="calendar alternate outline"></Icon>
 										{new Date(

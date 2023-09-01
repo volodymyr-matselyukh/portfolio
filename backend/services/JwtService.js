@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const Token = require("../database/models/token");
 
-const buildJwtToken = (id, name) => jwt.sign(
+const buildJwtToken = async (id, name) => await jwt.sign(
 	{
 		id,
 		name
@@ -10,7 +12,7 @@ const buildJwtToken = (id, name) => jwt.sign(
 		expiresIn: '11m'
 	});
 
-const buildJwtRefreshToken = (id, name) => jwt.sign(
+const buildJwtRefreshToken = async (id, name) => await jwt.sign(
 	{
 		id,
 		name
@@ -23,14 +25,13 @@ const buildJwtRefreshToken = (id, name) => jwt.sign(
 const addJwtCookieToResponse = (token, response) => {
 	const jwtCookie = {
 		httpOnly: false,
-		sameSite: 'Lax', 
+		sameSite: 'Lax',
 		secure: true,
 		path: '/',
 		maxAge: 1000 * 60 * 10                 /* 10 minutes */
 	};
 
-	if(process.env.COOKIE_DOMAIN)
-	{
+	if (process.env.COOKIE_DOMAIN) {
 		jwtCookie.domain = process.env.COOKIE_DOMAIN;
 	}
 
@@ -40,26 +41,61 @@ const addJwtCookieToResponse = (token, response) => {
 const addRefreshJwtCookieToResponse = (refreshToken, response) => {
 	const jwtRefreshCookie = {
 		httpOnly: true,
-		sameSite: 'Lax', 
+		sameSite: 'Lax',
 		secure: true,
 		path: '/',
 		maxAge: 1000 * 60 * 60 * 24 * 400      /* 400 days */
 	};
 
-	if(process.env.COOKIE_DOMAIN)
-	{
+	if (process.env.COOKIE_DOMAIN) {
 		jwtRefreshCookie.domain = process.env.COOKIE_DOMAIN;
 	}
 
 	response.cookie('jwt_refresh', refreshToken, jwtRefreshCookie);
 }
 
-const addAuthCookies = (id, name, res) => {
-	const token = buildJwtToken(id, name);
+const saveRefreshTokenInDb = async (refreshToken, userId) => {
+	const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+
+	const existingTokenIds = await Token.find({
+		user: {
+			"_id": userId
+		}
+	}).populate("user", "_id")
+	.select("_id")
+	.lean();
+
+	if (existingTokenIds.length > 0) {
+		const ids = [...existingTokenIds.map(token => token["_id"])];
+
+		console.log("Db contains the previous refresh token for user ", userId, [...ids]);
+		
+		await Token.deleteMany({ _id: {$in: ids} });
+	}
+
+	try {
+		console.log("adding new token");
+
+		const newToken = new Token({
+			user: userId,
+			value: hashedRefreshToken
+		});
+		
+		await newToken.save();
+	}
+	catch (err) {
+		console.error("error storing token", err);
+	}
+}
+
+const addAuthCookies = async (userId, name, res) => {
+	const token = await buildJwtToken(userId, name);
 
 	addJwtCookieToResponse(token, res);
 
-	const refreshToken = buildJwtRefreshToken(id, name);
+	const refreshToken = await buildJwtRefreshToken(userId, name);
+
+	await saveRefreshTokenInDb(refreshToken, userId);
 
 	addRefreshJwtCookieToResponse(refreshToken, res);
 }

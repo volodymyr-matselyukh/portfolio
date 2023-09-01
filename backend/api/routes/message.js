@@ -5,26 +5,7 @@ const router = express.Router();
 const Message = require('../../database/models/message');
 
 const sendEmail = require('../../services/EmailService');
-
-async function handleCaptcha(captchaToken) {
-	const response = await fetch(
-		`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.CAPTCHA_KEY}&response=${captchaToken}`,
-		{
-			method: 'POST'
-		}
-	);
-
-	const responseJson = await response.json();
-
-	console.log(responseJson);
-
-	if (!responseJson.success) {
-		const captchaError = new Error("Not a human");
-		captchaError.status = 400;
-
-		throw captchaError;
-	}
-}
+const handleCaptcha = require('../../services/CaptchaService');
 
 const saveMessage = async (message) => {
 

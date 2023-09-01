@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function MainMenu() {
 	const [isBurgerMenuVisible, setIsBurgerMenuVisible] =
@@ -26,9 +27,9 @@ export default function MainMenu() {
 					</button>
 
 					<div className="content__list">
-						<a href="#About" title="About" className="nav-item" onClick={burgerIconClickHandler}>
-							About
-						</a>
+						<Link to={"/blog"} title="About" className="nav-item nav-item--strong" onClick={burgerIconClickHandler}>
+							<strong>Blog</strong>
+						</Link>
 
 						<a href="#Experience" title="Experience" className="nav-item" onClick={burgerIconClickHandler}>
 							Experience

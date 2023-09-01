@@ -25,8 +25,6 @@ export default function AddEditArticle() {
 	useEffect(() => {
 		if (articleId && articleId != "0") {
 			getArticle(articleId).then((article: any) => {
-				console.log("article", article);
-
 				article.keywords = article?.keywords?.join(",");
 
 				setArticle(article);
@@ -76,7 +74,7 @@ export default function AddEditArticle() {
 				>
 					{() => (
 						<Form className="message-form ui form">
-							<input type="hidden" name="id" value={article?.id} />
+							<input type="hidden" name="id" />
 
 							<MyTextInput
 								name="name"

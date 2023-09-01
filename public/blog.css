@@ -37,6 +37,9 @@
 .menu .content__list .nav-item:hover {
   color: #E7746F;
 }
+.menu .content__list .nav-item--active {
+  color: #E7746F;
+}
 .menu .content .navbar-toggler {
   display: none;
 }
@@ -81,10 +84,6 @@
 .blog .article:hover .header {
   text-shadow: 1px 1px black;
 }
-.blog .article-modify:hover {
-  color: black;
-  cursor: alias;
-}
 .blog .article-footer {
   display: flex;
 }
@@ -103,5 +102,21 @@
 .blog .article .input-block .form-control-text-area {
   margin-left: 20px;
   width: 70%;
+}
+.blog .content {
+  font-size: 22px;
+  margin-top: 30px;
+}
+.blog .content code {
+  background-color: black;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  display: block;
+  border-radius: 10px;
+  padding: 20px;
+}
+.blog .content img {
+  object-fit: contain;
+  width: 100%;
 }
 /*# sourceMappingURL=./blog.css.map */

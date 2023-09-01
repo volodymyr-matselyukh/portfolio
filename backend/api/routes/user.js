@@ -1,33 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const { readTokenFromHeader, readTokenFromCookie } = require("../../services/JwtDataExtractor");
 
 const router = express.Router();
-const { isCredentialsCorrect } = require('../../services/UserService');
+const { getUserNameById } = require('../../services/UserService');
+const { isHashMatch } = require('../../services/CryptoService');
 const { addAuthCookies } = require('../../services/JwtService');
+const handleCaptcha = require('../../services/CaptchaService');
+const { validateToken, validateRefreshToken } = require('../middleware/jwtValidator');
 
 const User = require('../../database/models/user');
 
-
-async function handleCaptcha(captchaToken) {
-	const response = await fetch(
-		`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.CAPTCHA_KEY}&response=${captchaToken}`,
-		{
-			method: 'POST'
-		}
-	);
-
-	const responseJson = await response.json();
-
-	console.log(responseJson);
-
-	if (!responseJson.success) {
-		const captchaError = new Error("Not a human");
-		captchaError.status = 400;
-
-		throw captchaError;
-	}
-}
+let refreshingPromise = null;
 
 router.post("/signin", async (req, res, next) => {
 
@@ -39,13 +24,20 @@ router.post("/signin", async (req, res, next) => {
 		return res.status(400).json({ "message": "Login or password invalid." });
 	}
 
-	const isPasswordCorrect = await isCredentialsCorrect(params.password, existingUser.password);
+	const isPasswordCorrect = await isHashMatch(params.password, existingUser.password);
 
 	if (!isPasswordCorrect) {
 		return res.status(400).json({ "message": "Login or password invalid." });
 	}
 
-	addAuthCookies(existingUser._id, existingUser.name, res);
+	try {
+		await handleCaptcha(params.token);
+	}
+	catch (error) {
+		return next(error);
+	}
+
+	await addAuthCookies(existingUser._id, existingUser.name, res);
 
 	res.status(200).json({
 		"message": "Success",
@@ -53,33 +45,60 @@ router.post("/signin", async (req, res, next) => {
 			"userName": existingUser.name
 		}
 	});
+}); 
 
-	// const message = new Message({
-	// 	name: params.name,
-	// 	email: params.email,
-	// 	message: params.message
-	// });
+router.post("/signout", validateToken, async (req, res, next) => {
 
-	// try {
-	// 	await handleCaptcha(params.token);
-	// }
-	// catch (error) {
-	// 	return next(error);
-	// }
+	const userId = req.tokenData.id;
+	const refreshToken = readTokenFromHeader(req, "jwt_refresh");
 
-	// await sendEmail(message.name, message.email, message.message);
+	const existingToken = await Token.findOne({ "user": { "_id": userId}}).exec();
 
-	// saveMessage(message)
-	// 	.then(() => {
-	// 		res.status(200).json({
-	// 			message: "Success"
-	// 		});
-	// 	})
-	// 	.catch(_ => {
-	// 		var errorToThrow = new Error("Internal error");
-	// 		errorToThrow.status = 500;
-	// 		next(errorToThrow);
-	// 	});
+	if (!existingToken) {
+		res.status(200).json({
+			"message": "Refresh token didn't exist"
+		});
+	}
+
+	const isRefreshTokenMatch = await isHashMatch(refreshToken, existingToken.value);
+
+	const warningMessage = "";
+
+	if (!isRefreshTokenMatch) {
+		warningMessage = "Token didn't match in the db";
+	}
+
+	await existingToken.remove().exec();
+
+	res.status(200).json({
+		"message": "Success",
+		"data": {
+			"warning": ""
+		}
+	});
+});
+
+router.post("/refresh", validateRefreshToken, async (req, res, next) => {
+	console.log("Refreshing token");
+	
+	const userId = req.refreshTokenData.id;
+	const userName = await getUserNameById(userId);
+	
+	if(!refreshingPromise)
+	{
+		refreshingPromise = addAuthCookies(userId, userName, res);
+	}
+
+	await refreshingPromise;
+
+	refreshingPromise = null;
+
+	return res.status(200).json({
+		"message": "Success",
+		"data": {
+			"userName": userName
+		}
+	});
 });
 
 module.exports = router;

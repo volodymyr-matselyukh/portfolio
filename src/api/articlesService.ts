@@ -17,6 +17,12 @@ export default function useArticle(){
 		return result as ArticleList;
 	}
 
+	const listMyArticles = async (): Promise<ArticleList> => {
+		const result = await requests.get('article/my');
+
+		return result as ArticleList;
+	}
+
 	const getArticle = async (id: string) => {
 		const result = await requests.get(`article/${id}`);
 	
@@ -29,5 +35,5 @@ export default function useArticle(){
 		return result as ArticleInList;
 	}
 
-	return { addArticle, listArticles, getArticle, getArticleByName };
+	return { addArticle, listArticles, getArticle, getArticleByName, listMyArticles };
 }

@@ -54,7 +54,7 @@ export default observer(function LoginForm() {
 							setIsLoading(true);
 
 							try {
-								await login(values.email, values.password);
+								await login(values.email, values.password, recaptchaValue);
 								resetForm();
 							} catch (err: any) {
 								console.error("error happened", err);
@@ -167,7 +167,7 @@ export default observer(function LoginForm() {
 		return (
 			<div className="logged-in-form">
 				<span className="welcome-text">Welcome, {userName}.</span>
-				<Link className="link-to-blog" to={"/blog"}>
+				<Link className="link-to-blog" to={"/admin/blog"}>
 					Go to blog dashboard.
 				</Link>
 

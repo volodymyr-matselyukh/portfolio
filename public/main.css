@@ -640,6 +640,9 @@ body footer p {
 .main-menu .content__list .nav-item:hover {
   color: #E7746F;
 }
+.main-menu .content__list .nav-item--strong {
+  font-weight: 600;
+}
 .main-menu .content .navbar-toggler {
   display: none;
 }

@@ -1,6 +1,4 @@
 const express = require('express');
-const { extractTokenDataFromRequest } = require("../../services/JwtDataExtractor");
-const { validateAndRefreshTokens, validateAndRefreshTokensIfPossible } = require("../middleware/jwtValidator");
 
 const router = express.Router();
 const { validateToken } = require('../middleware/jwtValidator');
@@ -10,23 +8,35 @@ router.get("/", async (req, res, next) => {
 	const articles = await Article.find({
 		isActive: true
 	})
-	.populate('author', '_id')
+	.populate('author', '_id name')
 	.select('name date description _id').lean();
-
-	try {
-		await validateAndRefreshTokensIfPossible(req, res);
-	} catch (err) {
-		console.error(err);
-	}
-
-	const tokenData = extractTokenDataFromRequest(req, "jwt");
 
 	res.status(200).json({
 		articles: articles.map(article => {
 
 			return {
 				...article,
-				isModifyable: article.author._id.toString() === tokenData?.id,
+				id: article._id
+			};
+		})
+	});
+});
+
+router.get("/my", validateToken, async (req, res, next) => {
+	const articles = await Article.find({
+		isActive: true,
+		author:{
+			'_id': req.tokenData.id
+		}
+	})
+	.populate('author', '_id')
+	.select('name date description _id').lean();
+
+	res.status(200).json({
+		articles: articles.map(article => {
+
+			return {
+				...article,
 				id: article._id
 			};
 		})
@@ -42,12 +52,6 @@ router.get("/:id", async (req, res, next) => {
 	try {
 		const article = await Article.findOne({ _id: articleId, isActive: true })
 			.lean();
-
-		try {
-			await validateAndRefreshTokensIfPossible(req, res);
-		} catch (err) {
-			console.error(err);
-		}
 
 		article.id = article._id;
 
@@ -67,12 +71,6 @@ router.get("/getbyname/:name", async (req, res, next) => {
 	const article = await Article.findOne({ name: articleName, isActive: true })
 		.lean();
 
-	try {
-		await validateAndRefreshTokensIfPossible(req, res);
-	} catch (err) {
-		console.error(err);
-	}
-
 	article.id = article._id;
 
 	res.status(200).json(article);
@@ -81,13 +79,12 @@ router.get("/getbyname/:name", async (req, res, next) => {
 router.post("/", validateToken, async (req, res, next) => {
 	const params = req.body;
 
-	const tokenData = extractTokenDataFromRequest(req);
-	console.log("author id", tokenData.id)
+	console.log("author id", req.tokenData.id); 
 
 	let keywords = params.keywords.split(',').map(x => x.trim());
 
 	if (!params.id) {
-		await createNewArticle(params, keywords, tokenData, res);
+		await createNewArticle(params, keywords, req.tokenData, res);
 	} else {
 		updateArticle(params, keywords, res);
 	}
@@ -130,7 +127,7 @@ const updateArticle = async (params, keywords, res) => {
 		content: params.content,
 		keywords: keywords,
 		description: params.description,
-		updateDate: currentDate
+		updateDate: currentDate 
 	}, {
 		new: true
 	});

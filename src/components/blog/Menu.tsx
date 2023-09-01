@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { store } from "../../stores/store";
+import { observer } from "mobx-react-lite";
 
-export default function Menu() {
+interface IProps{
+	activePage?: string
+}
+
+export default observer(function Menu({activePage}: IProps) {
 	const [isBurgerMenuVisible, setIsBurgerMenuVisible] =
 		useState<boolean>(false);
 
@@ -9,11 +15,18 @@ export default function Menu() {
 		setIsBurgerMenuVisible(!isBurgerMenuVisible);
 	};
 
+	const { userStore } = store;
+	const { isLoggedIn } = userStore;
+
 	return (
 		<div className="menu">
 			<div className="pf-block">
 				<div className="content">
-					<Link to={"/"} className="content__home-link" title="Portfolio">
+					<Link
+						to={"/"}
+						className="content__home-link"
+						title="Portfolio"
+					>
 						Volodymyr Matseliukh
 					</Link>
 
@@ -27,7 +40,23 @@ export default function Menu() {
 					</button>
 
 					<div className="content__list">
-						<Link to={"/blog"} title="Blog" className="nav-item" onClick={burgerIconClickHandler}>
+						{isLoggedIn && (
+							<Link
+								to={"/admin/blog"}
+								title="Dashboard"
+								className={activePage == "AdminDashboard" ? "nav-item nav-item--active" : "nav-item"} 
+								onClick={burgerIconClickHandler}
+							>
+								Dashboard
+							</Link>
+						)}
+
+						<Link
+							to={"/blog"}
+							title="Blog"
+							className={activePage == "Dashboard" ? "nav-item nav-item--active" : "nav-item"} 
+							onClick={burgerIconClickHandler}
+						>
 							Blog
 						</Link>
 					</div>
@@ -35,7 +64,12 @@ export default function Menu() {
 
 				{isBurgerMenuVisible && (
 					<div className="burger-content">
-						<Link to={"/blog"} title="Blog" className="nav-item" onClick={burgerIconClickHandler}>
+						<Link
+							to={"/blog"}
+							title="Blog"
+							className="nav-item"
+							onClick={burgerIconClickHandler}
+						>
 							Blog
 						</Link>
 					</div>
@@ -43,4 +77,4 @@ export default function Menu() {
 			</div>
 		</div>
 	);
-}
+})

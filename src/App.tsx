@@ -12,7 +12,8 @@ import FooterSection from "./components/home/FooterSection";
 import Article from "./components/blog/Article";
 import Menu from "./components/blog/Menu";
 import Dashboard from "./components/blog/Dashboard";
-import AddEditArticle from "./components/blog/AddEditArticle";
+import AdminDashboard from "./components/admin/Dashboard";
+import AddEditArticle from "./components/admin/AddEditArticle";
 
 function App() {
 	const aboutMeSectionRef = useRef<null | HTMLDivElement>(null);
@@ -22,6 +23,26 @@ function App() {
 			aboutMeSectionRef.current.scrollIntoView();
 		}
 	};
+
+	const getHomePage = (isLoginPage: boolean = false) => {
+		return (
+			<>
+					<ProjectItem />
+					<TopSection
+						scrollToAboutMeSection={clickOnScrollingButton}
+						isLoginPage={isLoginPage}
+					/>
+					<div className="page-container">
+						<MainMenu />
+						<AboutMeSection aboutMeSectionRef={aboutMeSectionRef} />
+						<ExperienceSection />
+						<ProjectsSection />
+						<ContactsSection />
+						<FooterSection />
+					</div>
+				</>
+		);
+	}
 
 	const router = createBrowserRouter([
 		{
@@ -44,10 +65,20 @@ function App() {
 			),
 		},
 		{
+			path: "admin/blog",
+			element: (
+				<>
+					<Menu activePage="AdminDashboard"/>
+					<AdminDashboard />
+					<FooterSection />
+				</>
+			),
+		},
+		{
 			path: "/blog",
 			element: (
 				<>
-					<Menu />
+					<Menu activePage="Dashboard" />
 					<Dashboard />
 					<FooterSection />
 				</>
@@ -66,23 +97,12 @@ function App() {
 			element: <ErrorPage statusCode={500} />,
 		},
 		{
+			path: "/login",
+			element: getHomePage(true)
+		},
+		{
 			path: "/",
-			element: (
-				<>
-					<ProjectItem />
-					<TopSection
-						scrollToAboutMeSection={clickOnScrollingButton}
-					/>
-					<div className="page-container">
-						<MainMenu />
-						<AboutMeSection aboutMeSectionRef={aboutMeSectionRef} />
-						<ExperienceSection />
-						<ProjectsSection />
-						<ContactsSection />
-						<FooterSection />
-					</div>
-				</>
-			),
+			element: getHomePage(),
 			errorElement: <ErrorPage statusCode={404} />,
 		},
 	]);

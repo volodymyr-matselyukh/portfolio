@@ -1,5 +1,4 @@
 const User = require("../database/models/user");
-const bcrypt = require('bcryptjs');
 
 const createAdminUser = async () => {
 	const existingUserQuery = User.findOne({ "email": process.env.ADMIN_EMAIL });
@@ -22,21 +21,6 @@ const createAdminUser = async () => {
 	await newUser.save();
 }
 
-const isCredentialsCorrect = async (password, hash) => {
-	try {
-		const result = await bcrypt.compare(password, hash);
-
-		console.log("comparison result", result);
-
-		return result;
-	}
-	catch (err) {
-		console.error('hash comparison failed', err);
-
-		return false;
-	}
-}
-
 const getUserNameById = async (id) => {
 	const existingUserQuery = User.findOne({ "_id": id }).select({ "name": 1 });
 
@@ -51,4 +35,4 @@ const getUserNameById = async (id) => {
 
 
 
-module.exports = { createAdminUser, isCredentialsCorrect, getUserNameById };
+module.exports = { createAdminUser, getUserNameById };

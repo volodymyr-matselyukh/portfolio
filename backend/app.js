@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 
 	if(req.method === 'OPTIONS'){
 		res.header('Access-Control-Allow-Methods', 'POST');
-		res.header('Access-Control-Allow-Headers', 'Content-Type');
+		res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 		return res.status(200).json({});
 	}
 

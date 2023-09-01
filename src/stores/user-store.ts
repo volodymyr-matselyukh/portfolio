@@ -3,7 +3,7 @@ import { makeAutoObservable, reaction } from "mobx";
 const jwtTokenCookieName = "jwt";
 
 export class UserStore {
-	authCookieSet: boolean = false || !!this.getCookie(jwtTokenCookieName);
+	token: string | null = window.localStorage.getItem(jwtTokenCookieName);
 	name: string | null = window.localStorage.getItem("username");
 
 	constructor() {
@@ -19,22 +19,39 @@ export class UserStore {
 				}
 			}
 		)
+
+		reaction(
+            () => this.token,
+            token => {
+				console.log("token set");
+                if(token){
+                    window.localStorage.setItem('jwt', token);
+                } else {
+                    window.localStorage.removeItem('jwt');
+                }
+            }
+        )
 	}
 
 	setName = (name: string | null) => {
 		this.name = name;
 	}
 
+	setToken = (token: string | null) => {
+        this.token = token;
+    }
+
 	logout = () => {
 		this.deleteCookie(jwtTokenCookieName);
 		this.name = null;
-		this.authCookieSet = false;
+		this.setToken(null);
 	}
 
 	login = () => {
-		const isCookieSet = !!this.getCookie(jwtTokenCookieName);
-		if (isCookieSet) {
-			this.authCookieSet = true;
+		const jwtFromCookie = this.getCookie(jwtTokenCookieName);
+		
+		if (!!jwtFromCookie) {
+			this.token = jwtFromCookie;
 		}
 	}
 
@@ -44,7 +61,7 @@ export class UserStore {
 
 	get isLoggedIn() {
 
-		const isLogged = this.authCookieSet && !!this.getCookie(jwtTokenCookieName);
+		const isLogged = !!this.token;
 
 		console.log("is logged in", isLogged);
 
