@@ -9,8 +9,6 @@ export default function useLogin(){
 
 	const login = async (email: string, password: string, token: string) => {
 		const result: any = await requests.postWithCredentials('user/signin', { email, password, token });
-		
-		console.log("result", result);
 
 		if(result.message === "Success")
 		{
@@ -20,14 +18,21 @@ export default function useLogin(){
 	}
 
 	const logout = async () => {
-		const result: any = await requests.postWithCredentials('user/signout', { });
-		
-		console.log("result", result);
 
-		if(result.message === "Success")
-		{
-			setName(result.data.userName);
-			userStoreLogout();
+		let result: any = null;
+
+		try{
+			result = await requests.postWithCredentials('user/signout', { });
+		}
+		catch{
+
+		}
+		finally{
+			if(result?.message === "Success")
+			{
+				setName("");
+				userStoreLogout();
+			}
 		}
 	}
 	

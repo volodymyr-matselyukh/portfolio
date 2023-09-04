@@ -11,7 +11,10 @@ const handleCaptcha = require('../../services/CaptchaService');
 const { validateToken, validateRefreshToken } = require('../middleware/jwtValidator');
 
 const User = require('../../database/models/user');
+const Token = require('../../database/models/token');
 
+
+let signOutPromise = null;
 let refreshingPromise = null;
 
 router.post("/signin", async (req, res, next) => {
@@ -45,14 +48,35 @@ router.post("/signin", async (req, res, next) => {
 			"userName": existingUser.name
 		}
 	});
-}); 
+});
 
 router.post("/signout", validateToken, async (req, res, next) => {
 
 	const userId = req.tokenData.id;
-	const refreshToken = readTokenFromHeader(req, "jwt_refresh");
+	const refreshToken = readTokenFromCookie(req, "jwt_refresh");
 
-	const existingToken = await Token.findOne({ "user": { "_id": userId}}).exec();
+	if (signOutPromise === null) {
+		signOutPromise = signOut(refreshToken, userId);
+	}
+
+	const warningMessage = await signOutPromise;
+	signOutPromise = null;
+
+	res.status(200).json({
+		"message": "Success",
+		"data": {
+			"warning": warningMessage
+		}
+	});
+});
+
+const signOut = async (refreshToken, userId) => {
+	const existingToken = await Token
+		.findOne({ "user": { "_id": userId } })
+		.populate("user")
+		.lean();
+
+	console.log(existingToken);
 
 	if (!existingToken) {
 		res.status(200).json({
@@ -62,30 +86,22 @@ router.post("/signout", validateToken, async (req, res, next) => {
 
 	const isRefreshTokenMatch = await isHashMatch(refreshToken, existingToken.value);
 
-	const warningMessage = "";
+	let warningMessage = "";
 
 	if (!isRefreshTokenMatch) {
 		warningMessage = "Token didn't match in the db";
 	}
 
-	await existingToken.remove().exec();
+	await Token.deleteOne({ _id: existingToken._id });
 
-	res.status(200).json({
-		"message": "Success",
-		"data": {
-			"warning": ""
-		}
-	});
-});
+	return warningMessage;
+}
 
 router.post("/refresh", validateRefreshToken, async (req, res, next) => {
-	console.log("Refreshing token");
-	
 	const userId = req.refreshTokenData.id;
 	const userName = await getUserNameById(userId);
-	
-	if(!refreshingPromise)
-	{
+
+	if (!refreshingPromise) {
 		refreshingPromise = addAuthCookies(userId, userName, res);
 	}
 

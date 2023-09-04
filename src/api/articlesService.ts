@@ -5,8 +5,9 @@ import { ArticleInList, ArticleList } from "./models/ArticleInList";
 export default function useArticle(){
 	const requests = useAxios();
 
-	const addArticle = async (id: string, name: string, content:string, keywords:string, description: string) => {
-		const result = await requests.post('article', { id, name, content, keywords, description });		
+	const addArticle = async (id: string, name: string, content:string, keywords:string, description: string, published: boolean) => {
+
+		const result = await requests.post('article', { id, name, content, keywords, description, published });		
 	
 		return result;
 	}

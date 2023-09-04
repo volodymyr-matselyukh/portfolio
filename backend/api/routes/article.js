@@ -6,7 +6,8 @@ const Article = require('../../database/models/article');
 
 router.get("/", async (req, res, next) => {
 	const articles = await Article.find({
-		isActive: true
+		isActive: true,
+		isPublished: true
 	})
 	.populate('author', '_id name')
 	.select('name date description _id').lean();
@@ -30,7 +31,7 @@ router.get("/my", validateToken, async (req, res, next) => {
 		}
 	})
 	.populate('author', '_id')
-	.select('name date description _id').lean();
+	.select('name date description _id isPublished').lean();
 
 	res.status(200).json({
 		articles: articles.map(article => {
@@ -46,8 +47,6 @@ router.get("/my", validateToken, async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
 
 	const articleId = req.params.id;
-
-	console.log("article id", articleId);
 
 	try {
 		const article = await Article.findOne({ _id: articleId, isActive: true })
@@ -71,6 +70,11 @@ router.get("/getbyname/:name", async (req, res, next) => {
 	const article = await Article.findOne({ name: articleName, isActive: true })
 		.lean();
 
+	if(!article)
+	{
+		return res.status(404).json({"message":"Article not found"});
+	}
+
 	article.id = article._id;
 
 	res.status(200).json(article);
@@ -78,8 +82,6 @@ router.get("/getbyname/:name", async (req, res, next) => {
 
 router.post("/", validateToken, async (req, res, next) => {
 	const params = req.body;
-
-	console.log("author id", req.tokenData.id); 
 
 	let keywords = params.keywords.split(',').map(x => x.trim());
 
@@ -100,7 +102,8 @@ const createNewArticle = async (params, keywords, tokenData, res) => {
 		description: params.description,
 		author: tokenData.id,
 		date: currentDate,
-		updateDate: currentDate
+		updateDate: currentDate,
+		published: params.published
 	});
 
 	try {
@@ -127,7 +130,8 @@ const updateArticle = async (params, keywords, res) => {
 		content: params.content,
 		keywords: keywords,
 		description: params.description,
-		updateDate: currentDate 
+		updateDate: currentDate,
+		isPublished: params.published
 	}, {
 		new: true
 	});

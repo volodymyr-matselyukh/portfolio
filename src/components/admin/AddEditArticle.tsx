@@ -8,12 +8,14 @@ import MyFormikTextArea from "../controls/MyFormikTextArea";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ArticleInList } from "../../api/models/ArticleInList";
+import MyCheckbox from "../controls/MyCheckbox";
 
 const MessageSendSchema = Yup.object().shape({
 	name: Yup.string().required("Required"),
 	content: Yup.string().required("Required"),
 	keywords: Yup.string().required("Required"),
 	description: Yup.string().required("Required"),
+	isPublished: Yup.boolean(),
 });
 
 export default function AddEditArticle() {
@@ -43,6 +45,7 @@ export default function AddEditArticle() {
 						content: article?.content || "",
 						keywords: article?.keywords || "",
 						description: article?.description || "",
+						isPublished: article?.isPublished || false,
 					}}
 					validationSchema={MessageSendSchema}
 					onSubmit={async (values, { resetForm }) => {
@@ -52,27 +55,32 @@ export default function AddEditArticle() {
 								values.name,
 								values.content,
 								values.keywords,
-								values.description
-							).then((_) => 
-							{
+								values.description,
+								values.isPublished
+							).then((_) => {
 								setArticle({
 									id: values.id,
 									name: values.name,
 									content: values.content,
 									keywords: values.keywords,
-									description: values.description
+									description: values.description,
+									isPublished: values.isPublished,
 								} as ArticleInList);
 								resetForm();
 							}),
 							{
-								pending: article ? "Updating an article" : "Adding an article",
-								success: article ? "Article updated" : "Article added 👌",
+								pending: article
+									? "Updating an article"
+									: "Adding an article",
+								success: article
+									? "Article updated"
+									: "Article added 👌",
 								error: "Error happened 🤯",
 							}
 						);
 					}}
 				>
-					{() => (
+					{(handleChange) => (
 						<Form className="message-form ui form">
 							<input type="hidden" name="id" />
 
@@ -101,6 +109,21 @@ export default function AddEditArticle() {
 								placeholder="Article description"
 								rows={3}
 							/>
+
+							<MyCheckbox 
+								name="isPublished"
+								aria-label="Is published"
+							/>
+
+							{/* <label>
+								<input
+									name="healthBackground"
+									type="checkbox"
+									onChange={handleChange}
+									value="test1"
+								/>
+								test1
+							</label> */}
 
 							<div className="create-button-row">
 								<button

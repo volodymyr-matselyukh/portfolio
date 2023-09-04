@@ -23,7 +23,6 @@ export class UserStore {
 		reaction(
             () => this.token,
             token => {
-				console.log("token set");
                 if(token){
                     window.localStorage.setItem('jwt', token);
                 } else {
@@ -62,8 +61,6 @@ export class UserStore {
 	get isLoggedIn() {
 
 		const isLogged = !!this.token;
-
-		console.log("is logged in", isLogged);
 
 		return isLogged;
 	}

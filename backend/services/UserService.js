@@ -1,25 +1,25 @@
 const User = require("../database/models/user");
 
-const createAdminUser = async () => {
-	const existingUserQuery = User.findOne({ "email": process.env.ADMIN_EMAIL });
+// const createAdminUser = async () => {
+// 	const existingUserQuery = User.findOne({ "email": process.env.ADMIN_EMAIL });
 
-	const queryResult = await existingUserQuery.exec();
+// 	const queryResult = await existingUserQuery.exec();
 
-	if (queryResult) {
-		return;
-	}
+// 	if (queryResult) {
+// 		return;
+// 	}
 
-	const result = await bcrypt.hash(process.env.ADMIN_PASS, 10);
+// 	const result = await bcrypt.hash(process.env.ADMIN_PASS, 10);
 
-	const newUser = new User
-		({
-			name: "Admin",
-			email: process.env.ADMIN_EMAIL,
-			password: result
-		});
+// 	const newUser = new User
+// 		({
+// 			name: "Admin",
+// 			email: process.env.ADMIN_EMAIL,
+// 			password: result
+// 		});
 
-	await newUser.save();
-}
+// 	await newUser.save();
+// }
 
 const getUserNameById = async (id) => {
 	const existingUserQuery = User.findOne({ "_id": id }).select({ "name": 1 });
@@ -35,4 +35,4 @@ const getUserNameById = async (id) => {
 
 
 
-module.exports = { createAdminUser, getUserNameById };
+module.exports = { getUserNameById };

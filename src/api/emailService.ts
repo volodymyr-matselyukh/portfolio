@@ -7,8 +7,6 @@ export default function useEmail() {
 	const sendEmail = async (name: string, email: string, message: string, token: string) => {
 		const result = await requests.post('message', { name, email, message, token });
 	
-		console.log(result);
-	
 		return result;
 	} 
 

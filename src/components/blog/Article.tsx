@@ -5,7 +5,6 @@ import { ArticleInList } from "../../api/models/ArticleInList";
 import useArticle from "../../api/articlesService";
 
 export default function Article() {
-
 	let { articleName } = useParams();
 
 	const [article, setArticle] = useState<ArticleInList>();
@@ -14,8 +13,6 @@ export default function Article() {
 	useEffect(() => {
 		if (articleName) {
 			getArticleByName(articleName).then((article: any) => {
-				console.log("article", article);
-
 				article.keywords = article?.keywords?.join(",");
 
 				setArticle(article);
@@ -33,8 +30,8 @@ export default function Article() {
 		meta: {
 			charset: "utf-8",
 			name: {
-				keywords: "react,meta,document,html,tags"
-			}
+				keywords: "react,meta,document,html,tags",
+			},
 		},
 	};
 
@@ -44,8 +41,15 @@ export default function Article() {
 				<div className="pf-block">
 					<h1>{article?.name}</h1>
 
-					<div className="content" dangerouslySetInnerHTML={{ __html: article?.content || ""}}>
+					<div className="article-date">
+						{article?.date && new Date(article?.date).toLocaleDateString()}
 					</div>
+					<div
+						className="content"
+						dangerouslySetInnerHTML={{
+							__html: article?.content || "",
+						}}
+					></div>
 				</div>
 			</div>
 		</DocumentMeta>

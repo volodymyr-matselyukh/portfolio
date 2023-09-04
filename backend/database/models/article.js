@@ -8,7 +8,8 @@ const articleSchema = mongoose.Schema({
 	author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 	date: Date,
 	updateDate: Date,
-	isActive: {type: Boolean, default: true}
+	isActive: {type: Boolean, default: true},
+	isPublished: {type: Boolean, default: false}
 });
 
 module.exports = mongoose.model('Article', articleSchema);

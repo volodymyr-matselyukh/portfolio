@@ -41,7 +41,7 @@ export default observer(function Dashboard() {
 								link
 								href={`/article/edit/${article.id}`}
 								key={article.id}
-								className="article"
+								className={article.isPublished ? "article article--published" : "article" } 
 							>
 								<Card.Content header={article.name} />
 								<Card.Content

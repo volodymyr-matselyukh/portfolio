@@ -74,34 +74,43 @@
   text-align: right;
   padding: 20px 0;
 }
-.blog .article {
+.blog .articles-list .article {
   flex-basis: 300px;
   justify-content: space-between;
   align-items: stretch;
   display: flex;
   font-size: 18px;
 }
-.blog .article:hover .header {
+.blog .articles-list .article:hover .header {
   text-shadow: 1px 1px black;
 }
-.blog .article-footer {
+.blog .articles-list .article-footer {
   display: flex;
 }
-.blog .article-footer .article-date {
+.blog .articles-list .article-footer .article-date {
   margin-left: auto;
 }
-.blog .article .input-block {
+.blog .articles-list .article .input-block {
   display: flex;
 }
-.blog .article .input-block .label {
+.blog .articles-list .article .input-block .label {
   width: 100px;
   text-align: right;
   display: block;
 }
-.blog .article .input-block .form-control-input,
-.blog .article .input-block .form-control-text-area {
+.blog .articles-list .article .input-block .form-control-input,
+.blog .articles-list .article .input-block .form-control-text-area {
   margin-left: 20px;
   width: 70%;
+}
+.blog .articles-list .article.article--published {
+  background-color: aliceblue;
+}
+.blog .article-date {
+  background-color: gainsboro;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
 }
 .blog .content {
   font-size: 22px;
@@ -118,5 +127,8 @@
 .blog .content img {
   object-fit: contain;
   width: 100%;
+}
+.blog .content p {
+  line-height: 40px;
 }
 /*# sourceMappingURL=./blog.css.map */

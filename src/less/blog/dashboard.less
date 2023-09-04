@@ -1,6 +1,6 @@
 //main: "../blog.less"
 
-#root{
+#root {
 	height: 100%;
 }
 
@@ -34,45 +34,58 @@
 		text-align: right;
 		padding: 20px 0;
 	}
-	
-	.article {
-		flex-basis: 300px;
-		justify-content: space-between;
-		align-items: stretch;
-		display: flex;
-		font-size: 18px;
 
-		&:hover .header
-		{
-			text-shadow: 1px 1px black;
+	.articles-list {
+
+		.article {
+			flex-basis: 300px;
+			justify-content: space-between;
+			align-items: stretch;
+			display: flex;
+			font-size: 18px;
+
+			&:hover .header {
+				text-shadow: 1px 1px black;
+			}
+
+			&-footer {
+				display: flex;
+
+				.article-date {
+					margin-left: auto;
+				}
+			}
+
+			.input-block {
+				display: flex;
+
+				.label {
+					width: 100px;
+					text-align: right;
+					display: block;
+				}
+
+				.form-control-input,
+				.form-control-text-area {
+					margin-left: 20px;
+					width: 70%;
+				}
+			}
 		}
 
-		&-footer{
-			display: flex;
-
-			.article-date{
-				margin-left:auto;
-			}
-		}
-
-		.input-block {
-			display: flex;
-
-			.label {
-				width: 100px;
-				text-align: right;
-				display: block;
-			}
-
-			.form-control-input,
-			.form-control-text-area {
-				margin-left: 20px;
-				width: 70%;
-			}
+		.article.article--published {
+			background-color: aliceblue;
 		}
 	}
 
-	.content{
+	.article-date{
+		background-color: gainsboro;
+		display: inline-block;
+		padding: 5px;
+		border-radius: 5px;
+	}
+
+	.content {
 		font-size: 22px;
 		margin-top: 30px;
 	}

@@ -10,8 +10,6 @@ const handleCaptcha = async (captchaToken) => {
 
 	const responseJson = await response.json();
 
-	console.log(responseJson);
-
 	if (!responseJson.success) {
 		const captchaError = new Error("Not a human");
 		captchaError.status = 400;

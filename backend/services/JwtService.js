@@ -19,20 +19,21 @@ const buildJwtRefreshToken = async (id, name) => await jwt.sign(
 	},
 	process.env.JWT_REFRESH_PRIVATE_KEY,
 	{
-		expiresIn: '1h'
+		expiresIn: '399D'
 	});
 
 const addJwtCookieToResponse = (token, response) => {
 	const jwtCookie = {
-		httpOnly: false,
+	    httpOnly: false,
 		sameSite: 'Lax',
 		secure: true,
 		path: '/',
-		maxAge: 1000 * 60 * 10                 /* 10 minutes */
+		maxAge: 1000 * 60 * 10,                 /* 10 minutes */
 	};
 
 	if (process.env.COOKIE_DOMAIN) {
 		jwtCookie.domain = process.env.COOKIE_DOMAIN;
+		console.log("domain", process.env.COOKIE_DOMAIN);
 	}
 
 	response.cookie('jwt', token, jwtCookie);
@@ -49,6 +50,8 @@ const addRefreshJwtCookieToResponse = (refreshToken, response) => {
 
 	if (process.env.COOKIE_DOMAIN) {
 		jwtRefreshCookie.domain = process.env.COOKIE_DOMAIN;
+
+		console.log("refresh domain", process.env.COOKIE_DOMAIN);
 	}
 
 	response.cookie('jwt_refresh', refreshToken, jwtRefreshCookie);

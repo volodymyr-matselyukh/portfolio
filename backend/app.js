@@ -5,23 +5,40 @@ const app = express();
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-const { createAdminUser } = require('../backend/services/UserService');
-
 const messageRoutes = require("./api/routes/message");
 const userRoutes = require("./api/routes/user");
 const articleRoutes = require("./api/routes/article");
 
 const connectionUri = 'mongodb+srv://volodymyrmatselyukh:' + process.env.MONGO_ATLAS_PW + '@portfolio.m8gvq5q.mongodb.net?retryWrites=true&w=majority';
 
+const allowedReferers = ["https://matseliukh.com", "https://matseliukh-portfolio-front-end.fly.dev", "http://localhost:3000"];
+
 mongoose.connect(connectionUri, { 
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 });
 
-createAdminUser().then();
+function trimEnd(string, charToRemove) {
+    while(string.charAt(string.length-1)==charToRemove) {
+        string = string.substring(0,string.length-1);
+    }
+
+    return string;
+}
 
 app.use((req, res, next) => {
-	res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+	if(req?.headers?.referer)
+	{
+		let referrer = trimEnd(req.headers.referer, "/");
+
+		console.log("referrer", referrer);
+
+		if(allowedReferers.includes(referrer.toLowerCase()))
+		{
+			res.header('Access-Control-Allow-Origin', referrer);
+		}
+	}
+	
 	res.header('Access-Control-Allow-Headers', '*');
 	res.header('Access-Control-Allow-Credentials', true);
 
@@ -33,6 +50,8 @@ app.use((req, res, next) => {
 
 	next();
 })
+
+
 
 app.use(express.json());
 app.use(cookieParser());

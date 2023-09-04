@@ -11,6 +11,7 @@ export interface ArticleInList{
 	content: string,
 	keywords: string,
 	author: Author
+	isPublished: boolean
 }
 
 export interface Author{

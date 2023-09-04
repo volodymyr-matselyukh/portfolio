@@ -48,8 +48,6 @@ export default function useAxios() {
 
 						const result: any = await requests.postWithCredentials("user/refresh", {});
 
-						console.log("refresh result", result);
-
 						if (result.message === "Success") {
 							setName(result.data.userName);
 							login();

@@ -20,3 +20,12 @@ flyctl secrets set [flags] NAME=VALUE NAME=VALUE ...
 # connect to shell
 fly ssh console
 
+# setting up domain
+https://fly.io/docs/app-guides/custom-domains-with-fly/#teaching-your-app-about-custom-domains
+
+flyctl ips list
+
+flyctl certs create portfolioapi.matseliukh.com
+
+creating CNAME record(type CNAME, name: portfolioapi., value: matseliukh-portfolio-back-end.fly.dev)
+
