@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import AboutMeSection from "./components/home/AboutMeSection";
 import ExperienceSection from "./components/home/ExperienceSection";
 import TopSection from "./components/home/TopSection";
@@ -14,9 +14,11 @@ import Menu from "./components/blog/Menu";
 import Dashboard from "./components/blog/Dashboard";
 import AdminDashboard from "./components/admin/Dashboard";
 import AddEditArticle from "./components/admin/AddEditArticle";
+import getProjectNameFromUrl from "./utils/urlHelper";
 
 function App() {
 	const aboutMeSectionRef = useRef<null | HTMLDivElement>(null);
+	const portfolioSectionRef = useRef<null | HTMLDivElement>(null);
 
 	const clickOnScrollingButton = () => {
 		if (aboutMeSectionRef.current) {
@@ -24,25 +26,35 @@ function App() {
 		}
 	};
 
+	useEffect(() => {
+		const projectName = getProjectNameFromUrl();
+
+		if (projectName) {
+			portfolioSectionRef.current?.scrollIntoView();
+		}
+	}, []);
+
 	const getHomePage = (isLoginPage: boolean = false) => {
 		return (
 			<>
-					<ProjectItem />
-					<TopSection
-						scrollToAboutMeSection={clickOnScrollingButton}
-						isLoginPage={isLoginPage}
+				<ProjectItem />
+				<TopSection
+					scrollToAboutMeSection={clickOnScrollingButton}
+					isLoginPage={isLoginPage}
+				/>
+				<div className="page-container">
+					<MainMenu />
+					<AboutMeSection aboutMeSectionRef={aboutMeSectionRef} />
+					<ExperienceSection />
+					<ProjectsSection
+						portfolioSectionRef={portfolioSectionRef}
 					/>
-					<div className="page-container">
-						<MainMenu />
-						<AboutMeSection aboutMeSectionRef={aboutMeSectionRef} />
-						<ExperienceSection />
-						<ProjectsSection />
-						<ContactsSection />
-						<FooterSection />
-					</div>
-				</>
+					<ContactsSection />
+					<FooterSection />
+				</div>
+			</>
 		);
-	}
+	};
 
 	const router = createBrowserRouter([
 		{
@@ -68,7 +80,7 @@ function App() {
 			path: "admin/blog",
 			element: (
 				<>
-					<Menu activePage="AdminDashboard"/>
+					<Menu activePage="AdminDashboard" />
 					<AdminDashboard />
 					<FooterSection />
 				</>
@@ -98,7 +110,7 @@ function App() {
 		},
 		{
 			path: "/login",
-			element: getHomePage(true)
+			element: getHomePage(true),
 		},
 		{
 			path: "/",

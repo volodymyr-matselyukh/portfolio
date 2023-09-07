@@ -366,12 +366,26 @@ export const projects = [
 		"Order": 5,
 		"Company": "Pet&nbsp;projects",
 		"Name": "Portfolio",
-		"Description": "<p>This is the website you are looking at. It's built with React on front-end and Node.JS on back end. SendGrid is used for handling emails. It's backed into a container and deployed to Fly.io.</p>",
-		"Technologies": ["Node.JS", "MobX", "ReactJS", "Typescript", "CSS 3", "HTML 5", "JavaScript"],
+		"Description": "<p>This is the website you are looking at. It's built with React on front-end and Node.JS on back end. SendGrid is used for handling emails. It's backed into a container and deployed to Fly.io.</p> <p>This website has a <a href=\"http://matseliukh.com/blog\" target=\"_blank\">blog</a>. So, admin UI has been built along with authentication. JWT token is used for authentication. JWT renewal mechanism is being implemented too. Node.JS is used as a back end. MongoDB along with mongoose are used for storing articles.</p>",
+		"Technologies": ["Node.JS", "MobX", "ReactJS", "Typescript", "Mongoose", "MongoDB", "SendGrid", "CSS 3", "HTML 5", "JavaScript"],
 		"Images": [
 			{
 				"Url": "./images/petprojects/portfolio.jpg",
 				"Text": "Portfolio"
+			}
+		]
+	},
+	{
+		"Id": 18,
+		"Order": 4,
+		"Company": "Tutorials",
+		"Name": "Promptopia",
+		"Description": "<p>This project is a Next.JS tutorial. In this tutorial I used Next.JS along with React.JS. Next auth was used for user authentication. Google is used as an authentication provider. In this project I used App router. Tailwinds CSS is used for styling elements. Custom CSS classes are present too.</p> <p>The project has been deployed to Vercel platform, so you can give it a try: <a target=\"_blank\" href=\"https://promptopia-8itxvaxoj-volodymyr-matselyukh.vercel.app/\">live website</a></p> <p>Here is a github repository for the project: <a href=\"https://github.com/volodymyr-matselyukh/promptopia\">repository</a></p>",
+		"Technologies": ["Next.JS", "Next auth", "ReactJS", "Typescript", "Mongoose", "MongoDB", "CSS 3", "Tailwind CSS", "HTML 5"],
+		"Images": [
+			{
+				"Url": "./images/tutorials/promptopia.jpg",
+				"Text": "Promptopia"
 			}
 		]
 	}

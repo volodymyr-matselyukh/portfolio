@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { projects } from "../../resources/projects";
 import { store } from "../../stores/store";
+import getProjectNameFromUrl from "../../utils/urlHelper";
 
-export default function ProjectsSection() {
+interface IProps{
+	portfolioSectionRef: any;
+}
+
+export default function ProjectsSection({ portfolioSectionRef }: IProps) {
 	const { projectItemStore } = store;
 
 	const [companiesMap, setCompaniesMap] = useState<Map<string, number>>(
@@ -19,7 +24,23 @@ export default function ProjectsSection() {
 	useEffect(() => {
 		initializeCompaniesMap();
 		initializeTechnologyArray();
+
+		preSelectProject();
+
 	}, [activeCompany, activeTechnology]);
+
+	const preSelectProject = () => {
+		const selectedProjectName = getProjectNameFromUrl();
+		if(selectedProjectName)
+		{
+			const project = projects.find(p => p.Name.toLowerCase() === selectedProjectName);
+
+			if(project)
+			{
+				projectItemStore.setActiveProject(project.Id);
+			}
+		}
+	}
 
 	const initializeCompaniesMap = () => {
 		const companiesMap = new Map<string, number>();
@@ -172,11 +193,11 @@ export default function ProjectsSection() {
 
 	return (
 		<div id="Portfolio" className="portfolio">
-			<div className="pf-block">
+			<div className="pf-block max">
 				<h2 className="pf-block-title">Portfolio</h2>
 
 				<div className="pf-block-line"></div>
-				<div className="pfblock-text">
+				<div className="pf-block-text">
 					<p>
 						Here you can see the projects I was working on. I've
 						added some description, so you will be able to
@@ -194,7 +215,9 @@ export default function ProjectsSection() {
 						<a href="#Contacts" title="down" className="down"></a>
 					</div>
 
-					<div className="row">
+					<div className="row"
+						ref={portfolioSectionRef}
+					>
 						{projects
 							.sort((a, b) => (a.Order > b.Order ? 1 : -1))
 							.map((project) => {
@@ -223,6 +246,7 @@ export default function ProjectsSection() {
 											projectItemStore.setActiveProject(
 												project.Id
 											);
+											window.history.pushState("", "", `/?project=${project.Name.toLowerCase()}`);
 										}}
 										key={"project" + project.Id}
 										className="portfolio-item__link"

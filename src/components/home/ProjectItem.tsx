@@ -1,9 +1,28 @@
 import { observer } from "mobx-react-lite";
 import { store } from "../../stores/store";
 import { projects } from "../../resources/projects";
+import { useEffect, useState } from "react";
 
 export default observer(function ProjectItem() {
 	const { projectItemStore } = store;
+
+	const [isCopied, setIsCopied] = useState(false);
+
+	useEffect(() => {
+		let timeoutId: any = null;
+
+		if (isCopied) {
+			timeoutId = setTimeout(() => {
+				setIsCopied(false);
+			}, 2000);
+		}
+
+		return () => {
+			if (timeoutId) {
+				clearTimeout(timeoutId);
+			}
+		};
+	}, [isCopied]);
 
 	const project = projects.find(
 		(project) => project.Id == projectItemStore.activeProjectId
@@ -19,11 +38,16 @@ export default observer(function ProjectItem() {
 
 	const projectDescription = project!.Description;
 
+	const closeModal = () => {
+		projectItemStore.setActiveProject(null);
+		window.history.pushState("", "", "/");
+	};
+
 	return (
 		<div
 			className="modal"
 			onClick={() => {
-				projectItemStore.setActiveProject(null);
+				closeModal();
 			}}
 		>
 			<div
@@ -35,6 +59,21 @@ export default observer(function ProjectItem() {
 				<div className="header">
 					<span className="header__project-name">
 						{project?.Name}
+						<i
+							className={
+								isCopied
+									? "fa-solid fa-link active"
+									: "fa-solid fa-link"
+							}
+							title="Copy link"
+							onClick={(e) => {
+								e.preventDefault();
+								navigator.clipboard.writeText(
+									`https://matseliukh.com/?project=${project?.Name.toLowerCase()}`
+								);
+								setIsCopied(true);
+							}}
+						></i>
 					</span>
 					<a
 						title="close"
@@ -42,7 +81,7 @@ export default observer(function ProjectItem() {
 						href="#"
 						onClick={(e) => {
 							e.preventDefault();
-							projectItemStore.setActiveProject(null);
+							closeModal();
 						}}
 					></a>
 				</div>
@@ -57,7 +96,10 @@ export default observer(function ProjectItem() {
 						<div className="description__tags tags">
 							<div className="tags__title">Tech stack:</div>
 							{project?.Technologies.map((technology, index) => (
-								<span key={"tech"+ index} className="technology-tag">
+								<span
+									key={"tech" + index}
+									className="technology-tag"
+								>
 									{technology}
 								</span>
 							))}

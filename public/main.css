@@ -97,6 +97,7 @@ body .show > .btn-primary.dropdown-toggle:focus {
 }
 body .pf-block {
   padding: 120px 0 100px;
+  font-size: 18px;
 }
 body .pf-block-title {
   font-weight: 800;
@@ -240,16 +241,9 @@ body .portfolio {
   background: #f5f5f5;
   text-align: center;
 }
-body .portfolio .companies-row .company-name {
-  font-weight: 500;
-  margin: 0 10px;
-}
-body .portfolio .companies-row .company-name:hover {
-  color: #E87E04;
-  cursor: pointer;
-}
-body .portfolio .companies-row .company-name.active {
-  color: #E87E04;
+body .portfolio-item__link {
+  flex-basis: 21%;
+  margin: 5px;
 }
 body .portfolio .portfolio-container .row {
   overflow-y: auto;
@@ -664,6 +658,18 @@ body footer p {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  font-size: 16px;
+}
+.portfolio .companies-row .company-name {
+  font-weight: 500;
+  margin: 0 10px;
+}
+.portfolio .companies-row .company-name:hover {
+  color: #E87E04;
+  cursor: pointer;
+}
+.portfolio .companies-row .company-name.active {
+  color: #E87E04;
 }
 .portfolio .technologies-row {
   padding: 10px 0;
@@ -717,6 +723,20 @@ body footer p {
   align-items: center;
   justify-content: center;
   padding: 0 10px;
+  font-size: 20px;
+  border-bottom: 2px solid lightgray;
+}
+.modal .project-item .header .fa-link {
+  margin: 10px;
+  font-size: 16px;
+  color: gray;
+}
+.modal .project-item .header .fa-link:hover {
+  color: black;
+  cursor: pointer;
+}
+.modal .project-item .header .fa-link.active {
+  color: orange;
 }
 .modal .project-item .header__close-button {
   position: absolute;
@@ -747,6 +767,7 @@ body footer p {
   padding: 0 10px;
   max-height: 500px;
   overflow: auto;
+  font-size: 18px;
 }
 .modal .project-item .tags__title {
   padding: 10px 0;
@@ -895,6 +916,12 @@ body footer p {
 .pf-block {
   width: 800px;
   margin: 0 auto;
+}
+.pf-block.max {
+  max-width: 1024px;
+  width: unset;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .pf-block-text {
   text-align: justify;
