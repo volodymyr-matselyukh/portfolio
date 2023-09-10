@@ -26,8 +26,20 @@ export default function ProjectsSection({ portfolioSectionRef }: IProps) {
 		initializeTechnologyArray();
 
 		preSelectProject();
-
 	}, [activeCompany, activeTechnology]);
+
+	const getAllTechnologiesList = () => {
+		const allTechnologies: any = [];
+		
+		projects.forEach(p =>  
+			{
+				allTechnologies.push(...p.Technologies);
+			});
+		const technologiesSet = new Set(allTechnologies);
+		const technologiesArray = Array.from(technologiesSet);
+
+		console.log(technologiesArray.join(", "));
+	}
 
 	const preSelectProject = () => {
 		const selectedProjectName = getProjectNameFromUrl();

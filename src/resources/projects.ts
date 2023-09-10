@@ -42,8 +42,8 @@ export const projects = [
 		"Order": 20,
 		"Company": "Justanswer",
 		"Name": "Dialog set editor",
-		"Description": "<p>This project is an internal tool for chatbots creation. On this project I worked on front-end as well as on back-end. I was implementing new functionality using React, ASP.Net core API, EF manual modelling.</p><ul class='responsibilities__list'>My responsibilities were:<li>Implement new business logic</li><li>UI customization</li><li>Writing unit and integration tests</li></ul>",
-		"Technologies": ["ASP.Net Core Api", "C#", "Entity Framework Core", "SQL", "ReactJS", "HTML 5", "LESS", "Typescript", "SQL"],
+		"Description": "<p>This project is an internal tool for chatbots creation. On this project I worked on front-end as well as on back-end. I was implementing new functionality using React, ASP.Net core API, EF manual modelling. Redux was used for state management. Typescript was used to speedup the development process and eliminate bugs related to typos.</p> <ul class=\"responsibilities__list\">My responsibilities were: <li>Implement new business logic</li> <li>UI customization</li> <li>Writing unit and integration tests</li> </ul>",
+		"Technologies": ["ASP.Net Core Api", "C#", "Entity Framework Core", "SQL", "ReactJS", "Redux", "Metarial UI", "HTML 5", "LESS", "Typescript", "SQL"],
 		"Images": [
 			{
 				"Url": "./images/justanswer/chatbot.jpg",
@@ -284,7 +284,7 @@ export const projects = [
 		"Order": 120,
 		"Company": "Other",
 		"Name": "Ikeagoods",
-		"Description": "<p>An online shop. I've created this website using prestashop default theme. I've modified shipping block to accept a mobile phone and made email field not required. I've removed unnecessary fields and left minimun fileds to make an order.</p><ul class='responsibilities__list'>My responsibilities were:<li>Creating website using prestashop CMS and default theme.</li><li>Modifying pages to suite customer needs.</li><li>Work on speed load time optimization</li><li>Buying domain and hosting</li><li>Making website alive</li></ul><a href='https://ikeagoods.com.ua/' target='_blank'>https://ikeagoods.com.ua/</a>",
+		"Description": "<p>An online shop. I've created this website using prestashop default theme. I've modified shipping block to accept a mobile phone and made email field not required. I've removed unnecessary fields and left minimun fileds to make an order.</p><ul class='responsibilities__list'>My responsibilities were:<li>Creating website using prestashop CMS and default theme.</li><li>Modifying pages to suite customer needs.</li><li>Work on speed load time optimization</li><li>Buying domain and hosting</li><li>Making website alive</li></ul>",
 		"Technologies": ["Prestashop 1.7", "Php", "JQuery", "JavaScript", "CSS 3", "HTML 5"],
 		"Images": [
 			{
@@ -338,7 +338,7 @@ export const projects = [
 		"Order": 7,
 		"Company": "Justanswer",
 		"Name": "Money team contribution",
-		"Description": "<p>During 2 quorters I was performing some contributions to money system team.</p> <p>There were couple of challenges in this area. The goal was to improve credit card authorization rates as well as decrease chargeback rates.</p> <p>I was performing third party systems integration for improving authorization rates as well as optimizing current money flow for decreasing chargebacks.</p> <p>I was working with api's of different payment processors like <a href='https://www.chase.com/'>Chase</a> and <a href='https://www.adyen.com/'>Adyen</a>.</p> <p>Also, I've performed <a href='https://www.letskipp.com/'>KIPP</a> integration with current infrastructure.</p>",
+		"Description": "<p>During 2 quorters I was performing some contributions to money system team.</p> <p>There were couple of challenges in this area. The goal was to improve credit card authorization rates as well as decrease chargeback rates.</p> <p>I was performing third party systems integration for improving authorization rates as well as optimizing current money flow for decreasing chargebacks.</p> <p>I was working with api's of different payment processors like <a target='_blank' href='https://www.chase.com/'>Chase</a> and <a target='_blank' href='https://www.adyen.com/'>Adyen</a>.</p> <p>Also, I've performed <a target='_blank' href='https://www.letskipp.com/'>KIPP</a> integration with current infrastructure.</p>",
 		"Technologies": ["ASP.Net Core Api", "Adyen", "Chase", "KIPP", "SQL"],
 		"Images": [
 			{
@@ -352,7 +352,7 @@ export const projects = [
 		"Order": 6,
 		"Company": "Tutorials",
 		"Name": "Reactivities",
-		"Description": "<p>That's a project built during passing <a href='https://www.udemy.com/course/complete-guide-to-building-an-app-with-net-core-and-react/'>Udemy tutorial</a>. The project itself is a social network clone. There is front-end built in React and back-end in ASP.Net core api. SignalR is used for creating comments. Semantic UI react library is used for speeding up the development process and don't spend time on custom CSS. Entity Framework core is used as ORM. It talks to Postgre SQL db.</p> <p>Authentication and authorization is set up with the usage of JWT.</p> <p>The project was backed into a container and deployed to Fly.io.</p>",
+		"Description": "<p>That's a project built during passing <a target='_blank' href='https://www.udemy.com/course/complete-guide-to-building-an-app-with-net-core-and-react/'>Udemy tutorial</a>. The project itself is a social network clone. There is front-end built in React and back-end in ASP.Net core api. SignalR is used for creating comments. Semantic UI react library is used for speeding up the development process and don't spend time on custom CSS. Entity Framework core is used as ORM. It talks to Postgre SQL db.</p> <p>Authentication and authorization is set up with the usage of JWT.</p> <p>The project was backed into a container and deployed to Fly.io.</p>",
 		"Technologies": ["ASP.Net Core Api", "Semantic UI React", "MobX", "Cloudinary", "SignalR", "Entity Framework Core", "JWT", "ReactJS", "Typescript", "Swagger"],
 		"Images": [
 			{
@@ -366,7 +366,7 @@ export const projects = [
 		"Order": 5,
 		"Company": "Pet&nbsp;projects",
 		"Name": "Portfolio",
-		"Description": "<p>This is the website you are looking at. It's built with React on front-end and Node.JS on back end. SendGrid is used for handling emails. It's backed into a container and deployed to Fly.io.</p> <p>This website has a <a href=\"http://matseliukh.com/blog\" target=\"_blank\">blog</a>. So, admin UI has been built along with authentication. JWT token is used for authentication. JWT renewal mechanism is being implemented too. Node.JS is used as a back end. MongoDB along with mongoose are used for storing articles.</p>",
+		"Description": "<p>This is the website you are looking at. It's built with React on front-end and Node.JS on back end. SendGrid is used for handling emails. It's backed into a container and deployed to Fly.io.</p> <p>This website has a <a href=\"http://matseliukh.com/blog\" target=\"_blank\">blog</a>. So, admin UI has been built along with authentication. JWT token is used for authentication. JWT renewal mechanism is being implemented too. Node.JS is used as a back end. MongoDB along with mongoose are used for storing articles.</p><div>Here you can find a source code on <a target='_blank' href=\"https://github.com/volodymyr-matselyukh/portfolio\">Github</a> for current project.</div>",
 		"Technologies": ["Node.JS", "MobX", "ReactJS", "Typescript", "Mongoose", "MongoDB", "SendGrid", "CSS 3", "HTML 5", "JavaScript"],
 		"Images": [
 			{
@@ -380,12 +380,26 @@ export const projects = [
 		"Order": 4,
 		"Company": "Tutorials",
 		"Name": "Promptopia",
-		"Description": "<p>This project is a Next.JS tutorial. In this tutorial I used Next.JS along with React.JS. Next auth was used for user authentication. Google is used as an authentication provider. In this project I used App router. Tailwinds CSS is used for styling elements. Custom CSS classes are present too.</p> <p>The project has been deployed to Vercel platform, so you can give it a try: <a target=\"_blank\" href=\"https://promptopia-8itxvaxoj-volodymyr-matselyukh.vercel.app/\">live website</a></p> <p>Here is a github repository for the project: <a href=\"https://github.com/volodymyr-matselyukh/promptopia\">repository</a></p>",
+		"Description": "<p>This project is a Next.JS tutorial. In this tutorial I used Next.JS along with React.JS. Next auth was used for user authentication. Google is used as an authentication provider. In this project I used App router. Tailwinds CSS is used for styling elements. Custom CSS classes are present too.</p> <p>The project has been deployed to Vercel platform, so you can give it a try: <a target=\"_blank\" href=\"https://promptopia-8itxvaxoj-volodymyr-matselyukh.vercel.app/\">live website</a></p> <p>Here is a github repository for the project: <a target='_blank' href=\"https://github.com/volodymyr-matselyukh/promptopia\">repository</a></p>",
 		"Technologies": ["Next.JS", "Next auth", "ReactJS", "Typescript", "Mongoose", "MongoDB", "CSS 3", "Tailwind CSS", "HTML 5"],
 		"Images": [
 			{
 				"Url": "./images/tutorials/promptopia.jpg",
 				"Text": "Promptopia"
+			}
+		]
+	},
+	{
+		"Id": 19,
+		"Order": 3,
+		"Company": "Tutorials",
+		"Name": "Redux refresh",
+		"Description": "<p>In this simple project I tried to recall how Redux is being used in class components. Typescript is used in this project. Also, Cypress e2e test is being written. Async actions is being used along with AppThunk. Custom middleware has been created and injected into Redux pipeline.</p> <p>Link to <a target='_blank' href=\"https://github.com/volodymyr-matselyukh/redux-6-tutorial\">github</a>.</p>",
+		"Technologies": ["ReactJS", "Redux", "Class components", "Typescript", "AppThunk", "Redux middleware", "Styled components", "Cypress"],
+		"Images": [
+			{
+				"Url": "./images/tutorials/redux-refresh_300x300.jpg",
+				"Text": "Redux refresh"
 			}
 		]
 	}

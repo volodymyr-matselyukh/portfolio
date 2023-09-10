@@ -60,8 +60,9 @@ export default function AboutMeSection({ aboutMeSectionRef }: IProps) {
 
 				<p className="download-resume text-center">
 					<a
+						rel="noopener noreferrer"
 						className="btn btn-primary"
-						href="https://drive.google.com/file/d/1DwOfXRLCLmXbd_tEqASSyzV3ztQaPrwo/view?usp=sharing"
+						href="https://drive.google.com/file/d/1MbCEXOCcvzMKX8YgGvJG-dBu_sJP42nz/view?usp=drive_link"
 						target="_blank"
 						title="View/Download Resume"
 					>
