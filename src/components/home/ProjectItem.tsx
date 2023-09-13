@@ -69,7 +69,7 @@ export default observer(function ProjectItem() {
 							onClick={(e) => {
 								e.preventDefault();
 								navigator.clipboard.writeText(
-									`https://matseliukh.com/?project=${project?.Name.toLowerCase()}`
+									`https://matseliukh.com/?project=${project?.Name ? encodeURIComponent(project.Name.toLowerCase()) : ""}`
 								);
 								setIsCopied(true);
 							}}

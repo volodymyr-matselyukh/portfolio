@@ -121,7 +121,7 @@ export const projects = [
 		"Company": "Upwork",
 		"Name": "Impressolabs",
 		"Description": "<p>A website for companies and employees. The main feature of this website is that every profile is verified and validated, so, companies may not worry about proficiency of their new hires. This project included website and mobile apps for iphone and android. I was leading a team of two web developers on this project.</p><ul class='responsibilities__list'>My responsibilities were:<li>Managing team of 2 devs</li><li>Analyse business requirements from the customer</li><li>Tasks planning and estimation</li><li>Communication with mobile apps team</li><li>Creating architecrure of the website</li></ul><a href='https://www.impressolabs.io/' target='_blank'>www.impressolabs.io</a>",
-		"Technologies": ["ASP.Net MVC core", "Entity Framework Core", "C#", "Swagger", "JWT", "JQuery", "JavaScript", "SCSS", "Bootstrap", "CSS 3", "HTML 5"],
+		"Technologies": ["Node.JS", "Express", "Mongoose", "MongoDB", "JWT", "ReactJS", "Redux", "Typescript", "SCSS", "Bootstrap", "CSS 3", "HTML 5"],
 		"Images": [
 			{
 				"Url": "./images/upwork/impressolabs-main.jpg",
@@ -353,7 +353,7 @@ export const projects = [
 		"Company": "Tutorials",
 		"Name": "Reactivities",
 		"Description": "<p>That's a project built during passing <a target='_blank' href='https://www.udemy.com/course/complete-guide-to-building-an-app-with-net-core-and-react/'>Udemy tutorial</a>. The project itself is a social network clone. There is front-end built in React and back-end in ASP.Net core api. SignalR is used for creating comments. Semantic UI react library is used for speeding up the development process and don't spend time on custom CSS. Entity Framework core is used as ORM. It talks to Postgre SQL db.</p> <p>Authentication and authorization is set up with the usage of JWT.</p> <p>The project was backed into a container and deployed to Fly.io.</p>",
-		"Technologies": ["ASP.Net Core Api", "Semantic UI React", "MobX", "Cloudinary", "SignalR", "Entity Framework Core", "JWT", "ReactJS", "Typescript", "Swagger"],
+		"Technologies": ["ASP.Net Core Api", "Semantic UI React", "MobX", "Cloudinary", "SignalR", "Entity Framework Core", "JWT", "ReactJS", "Typescript", "Swagger", "Docker"],
 		"Images": [
 			{
 				"Url": "./images/tutorials/reactivities.jpg",
@@ -367,7 +367,7 @@ export const projects = [
 		"Company": "Pet&nbsp;projects",
 		"Name": "Portfolio",
 		"Description": "<p>This is the website you are looking at. It's built with React on front-end and Node.JS on back end. SendGrid is used for handling emails. It's backed into a container and deployed to Fly.io.</p> <p>This website has a <a href=\"http://matseliukh.com/blog\" target=\"_blank\">blog</a>. So, admin UI has been built along with authentication. JWT token is used for authentication. JWT renewal mechanism is being implemented too. Node.JS is used as a back end. MongoDB along with mongoose are used for storing articles.</p><div>Here you can find a source code on <a target='_blank' href=\"https://github.com/volodymyr-matselyukh/portfolio\">Github</a> for current project.</div>",
-		"Technologies": ["Node.JS", "MobX", "ReactJS", "Typescript", "Mongoose", "MongoDB", "SendGrid", "CSS 3", "HTML 5", "JavaScript"],
+		"Technologies": ["Node.JS", "Express", "MobX", "ReactJS", "Typescript", "Mongoose", "MongoDB", "SendGrid", "CSS 3", "HTML 5", "JavaScript", "Docker"],
 		"Images": [
 			{
 				"Url": "./images/petprojects/portfolio.jpg",
@@ -400,6 +400,34 @@ export const projects = [
 			{
 				"Url": "./images/tutorials/redux-refresh_300x300.jpg",
 				"Text": "Redux refresh"
+			}
+		]
+	},
+	{
+		"Id": 20,
+		"Order": 2,
+		"Company": "Justanswer",
+		"Name": "Virtual assistant service",
+		"Description": "<p>This project is a reverse proxy Node.JS service. It was used for opening .net api for public access.<br />The idea was to convert some endpoints from Post to Get types so they could be cached in CloudFlare.<br />This was a lightweight service that formatted messages and sent to backend. One more thing that we added to this service were logs that keep track of request duration. Virtual assistant web service was one of the many in the request pipeline. So, it was important to know on each step how much time the request takes.</p>",
+		"Technologies": ["Node.JS", "winston", "ELK", "JavaScript"],
+		"Images": [
+			{
+				"Url": "./images/justanswer/va-service_300x300.jpg",
+				"Text": "Virtual assistant service"
+			}
+		]
+	},
+	{
+		"Id": 21,
+		"Order": 1,
+		"Company": "Pet&nbsp;projects",
+		"Name": "Trading bot",
+		"Description": "<p>In this project I've created a crypto trading bot. It's strategy was based on <a href=\"https://en.wikipedia.org/wiki/Martingale_(probability_theory)\">Martingale</a> strategy. I've run the bot on historical data and deployed to production environment. Full CI/CD pipeline has been implemented for the bot starting from push to master finishing with deployed bot onto production environment. Fly.io platform was used for hosting the bot. Bitbucket private repository was used for storing source code. Bitbucket deployment pipeline has been used for CI/CD.</p>",
+		"Technologies": [".Net worker", "Bybit API", "PostgresQL", "Entity Framework Core", "Web sockets", "Docker"],
+		"Images": [
+			{
+				"Url": "./images/petprojects/trading-bot_300x300.jpg",
+				"Text": "Crypto trading bot"
 			}
 		]
 	}

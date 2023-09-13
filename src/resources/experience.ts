@@ -15,7 +15,7 @@ export const experience = [
 	  "Position": "Senior Software Engineer",
 	  "PositionDescription": "Through Upwork businesses get more done, connecting with freelancers to work on projects from web and mobile app development to SEO, social media marketing, content writing, graphic design, admin help and thousands of other projects. Upwork makes it fast, simple, and cost-effective to find, hire, work with, and pay the best professionals anywhere, any time.",
 	  "StartDate": "Jul 2018",
-	  "EndDate": "10:2018"
+	  "EndDate": "Oct:2018"
 	},
 	{
 	  "CompanyName": "Devima",

@@ -62,7 +62,7 @@ export default function AboutMeSection({ aboutMeSectionRef }: IProps) {
 					<a
 						rel="noopener noreferrer"
 						className="btn btn-primary"
-						href="https://drive.google.com/file/d/1MbCEXOCcvzMKX8YgGvJG-dBu_sJP42nz/view?usp=drive_link"
+						href="https://drive.google.com/file/d/1Up-z285dtjjwa-g00_OJonx_Ua8PHRQe/view?usp=drive_link"
 						target="_blank"
 						title="View/Download Resume"
 					>
