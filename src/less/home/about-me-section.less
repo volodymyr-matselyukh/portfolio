@@ -1,12 +1,34 @@
 //main: "../main.less"
 
-.about-me-section{
+.about-me-section {
 
-	:not(:last-child).technology-icon{
+	h4 {
+		line-height: 1.28571429em;
+		margin: calc(2rem - 0.14285714em) 0 1rem;
+		font-weight: 700;
+		padding: 0;
+	}
+
+	p {
+		margin: 0 0 1em;
+		line-height: 1.4285em;
+	}
+
+	ul {
+		display: block;
+		list-style-type: disc;
+		margin-block-start: 1em;
+		margin-block-end: 1em;
+		margin-inline-start: 0px;
+		margin-inline-end: 0px;
+		padding-inline-start: 40px;
+	}
+
+	:not(:last-child).technology-icon {
 		margin-right: 5px;
 	}
 
-	.technology-icon{
+	.technology-icon {
 		background-repeat: no-repeat;
 		display: inline-block;
 		width: 1rem;
@@ -16,15 +38,15 @@
 		background-size: contain;
 	}
 
-	.node-js{
-		background-image: url('../images/node-js_30x30.png');
+	.node-js {
+		background-image: url('../../public/images/node-js_30x30.png');
 	}
 
-	.python{
-		background-image: url('../images/python_30x30.png');
+	.python {
+		background-image: url('../../public/images/python_30x30.png');
 	}
 
-	.solidity{
-		background-image: url('../images/solidity_30x30.png');
+	.solidity {
+		background-image: url('../../public/images/solidity_30x30.png');
 	}
 }

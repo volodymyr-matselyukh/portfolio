@@ -16,6 +16,8 @@ import AdminDashboard from "./components/admin/Dashboard";
 import AddEditArticle from "./components/admin/AddEditArticle";
 import getProjectNameFromUrl from "./utils/urlHelper";
 
+
+
 function App() {
 	const aboutMeSectionRef = useRef<null | HTMLDivElement>(null);
 	const portfolioSectionRef = useRef<null | HTMLDivElement>(null);

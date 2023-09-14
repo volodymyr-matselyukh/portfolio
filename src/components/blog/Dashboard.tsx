@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useArticle from "../../api/articlesService";
 import { useEffect, useState } from "react";
 import { ArticleInList, ArticleList } from "../../api/models/ArticleInList";
-import { Card, Icon } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import { store } from "../../stores/store";
 import { observer } from "mobx-react-lite";
 
@@ -13,6 +13,7 @@ export default observer(function Dashboard() {
 	const { isLoggedIn } = userStore;
 
 	const [articles, setArticles] = useState<ArticleInList[]>([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		listArticles().then((articleList: ArticleList) =>
@@ -33,39 +34,36 @@ export default observer(function Dashboard() {
 					</div>
 				)}
 
-				<div className="articles-list">
-					<Card.Group>
+				<div className="w-full p-2.5 flex space-x-3 items-baseline">
 						{articles.map((article) => (
-							// <div className="article" >
-							// 	{article.name}
-
-							// 	<span className="date">{new Date(article.date).toLocaleString()}</span>
-							// 	<span className="modify">{article.isModifyable}</span>
-							// </div>
-
-							<Card
-								link
-								href={`/article/${article.name}`}
+							<div
+								onClick={() => navigate(`/article/${article.name}`)}
 								key={article.id}
-								className="article"
+								className="outline text-xl border-solid border-2 outline-2 outline-white border-gray-200 rounded-lg
+								p-3 hover:cursor-pointer hover:outline-gray-400 basis-96"
 							>
-								<Card.Content header={article.name} />
-								<Card.Content
-									description={article.description}
-								/>
-								<Card.Content extra className="article-footer">
-									<span>{article.author.name}</span>
+								<div
+									className="font-bold"
+								>{article.name}</div>
+								<hr className="mb-3 mt-3"></hr>
+								<div>{article.description}</div>
 
-									<div className="article-date">
-										<Icon name="calendar alternate outline"></Icon>
+								<hr className="mb-3 mt-3"></hr>
+
+								<div className="flex justify-between text-gray-400">
+									<span className="">{article.author.name}</span>
+
+									<div className="">
+										<Icon 
+										className="relative top-0.5 right-1 "
+										name="calendar alternate outline"></Icon>
 										{new Date(
 											article.date
 										).toLocaleDateString()}
 									</div>
-								</Card.Content>
-							</Card>
+								</div>
+							</div>
 						))}
-					</Card.Group>
 				</div>
 			</div>
 		</div>

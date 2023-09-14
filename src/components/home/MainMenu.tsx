@@ -27,7 +27,7 @@ export default function MainMenu() {
 					</button>
 
 					<div className="content__list">
-						<Link to={"/blog"} title="About" className="nav-item nav-item--strong" onClick={burgerIconClickHandler}>
+						<Link to={"/blog"} title="Blog" className="nav-item nav-item--strong" onClick={burgerIconClickHandler}>
 							<strong>Blog</strong>
 						</Link>
 
@@ -47,9 +47,9 @@ export default function MainMenu() {
 
 				{isBurgerMenuVisible && (
 					<div className="burger-content">
-						<a href="#About" title="About" className="nav-item" onClick={burgerIconClickHandler}>
-							About
-						</a>
+						<Link to={"/blog"} title="About" className="nav-item nav-item--strong" onClick={burgerIconClickHandler}>
+							<strong>Blog</strong>
+						</Link>
 
 						<a href="#Experience" title="Experience" className="nav-item" onClick={burgerIconClickHandler}>
 							Experience
