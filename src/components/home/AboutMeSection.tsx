@@ -62,7 +62,7 @@ export default function AboutMeSection({ aboutMeSectionRef }: IProps) {
 					<a
 						rel="noopener noreferrer"
 						className="btn btn-primary"
-						href="https://drive.google.com/file/d/1J8Yl0MqatW-CmL0VWgUqxwl8G41kLtuI/view"
+						href={process.env.REACT_APP_PORTFOLIO_URL}
 						target="_blank"
 						title="View/Download Resume"
 					>
