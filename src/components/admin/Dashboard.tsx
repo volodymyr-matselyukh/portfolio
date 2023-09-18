@@ -34,30 +34,36 @@ export default observer(function Dashboard() {
 					</div>
 				)}
 
-				<div className="articles-list">
-					<Card.Group>
-						{articles.map((article) => (
-							<Card
-								link
-								href={`/article/edit/${article.id}`}
-								key={article.id}
-								className={article.isPublished ? "article article--published" : "article" } 
-							>
-								<Card.Content header={article.name} />
-								<Card.Content
-									description={article.description}
-								/>
-								<Card.Content extra className="article-footer">
-									<div className="article-date">
-										<Icon name="calendar alternate outline"></Icon>
-										{new Date(
-											article.date
-										).toLocaleDateString()}
-									</div>
-								</Card.Content>
-							</Card>
-						))}
-					</Card.Group>
+				<div className="w-full p-2.5 flex gap-2 items-baseline flex-wrap">
+					{articles.map((article) => (
+						<div
+							onClick={() => navigate(`/article/${article.name}`)}
+							key={article.id}
+							className="outline text-xl border-solid border-2 outline-2 outline-white border-gray-200 rounded-lg
+								p-3 hover:cursor-pointer hover:outline-gray-400 basis-96
+								flex-shrink-0"
+						>
+							<div className="font-bold ">{article.name}</div>
+							<hr className="mb-3 mt-3"></hr>
+							<div>{article.description}</div>
+
+							<hr className="mb-3 mt-3"></hr>
+
+							<div className="flex justify-between text-gray-400">
+								<span className="">{article.author.name}</span>
+
+								<div className="">
+									<Icon
+										className="relative top-0.5 right-1 "
+										name="calendar alternate outline"
+									></Icon>
+									{new Date(
+										article.date
+									).toLocaleDateString()}
+								</div>
+							</div>
+						</div>
+					))}
 				</div>
 			</div>
 		</div>

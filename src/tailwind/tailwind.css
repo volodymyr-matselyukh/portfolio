@@ -654,8 +654,16 @@ video {
   width: 100%;
 }
 
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
 .basis-96 {
   flex-basis: 24rem;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .items-baseline {
@@ -666,10 +674,8 @@ video {
   justify-content: space-between;
 }
 
-.space-x-3 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.75rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .rounded-lg {
@@ -714,9 +720,19 @@ video {
   font-weight: 700;
 }
 
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 .outline {
@@ -738,4 +754,3 @@ video {
 .hover\:outline-gray-400:hover {
   outline-color: #9ca3af;
 }
-/*# sourceMappingURL=tailwind_built.css.map */

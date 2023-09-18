@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import "./less/tailwind_built.css";
+import "./tailwind/tailwind.css";
 import "./less/main.css";
 import "./less/blog.css";
 

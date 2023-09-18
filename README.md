@@ -29,3 +29,6 @@ flyctl certs create portfolioapi.matseliukh.com
 
 creating CNAME record(type CNAME, name: portfolioapi., value: matseliukh-portfolio-back-end.fly.dev)
 
+# tailwind styles build
+npx tailwindcss -i ./src/tailwind/input.css -o ./src/tailwind/tailwind.css --watch
+

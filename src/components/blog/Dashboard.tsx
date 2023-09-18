@@ -24,17 +24,7 @@ export default observer(function Dashboard() {
 	return (
 		<div className="blog">
 			<div className="pf-block">
-				{isLoggedIn && (
-					<div className="add-article">
-						<Link
-							className="add-article__button"
-							to={"/article/edit/0"}
-							title="Add new article"
-						></Link>
-					</div>
-				)}
-
-				<div className="w-full p-2.5 flex space-x-3 items-baseline">
+				<div className="w-full p-2.5 flex gap-2 items-baseline">
 						{articles.map((article) => (
 							<div
 								onClick={() => navigate(`/article/${article.name}`)}

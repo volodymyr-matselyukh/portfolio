@@ -12,6 +12,9 @@ flyctl deploy --ha=false
 #prepare front-end
 #build image
 cd ../
+
+npx tailwindcss -i ./src/tailwind/input.css -o ./src/tailwind/tailwind.css
+
 docker build -f Dockerfile -t volodymyr92/portfolio-front-end .
 
 #public image
