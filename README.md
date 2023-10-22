@@ -2,6 +2,9 @@
 # build image
 docker build -f Dockerfile -t server .
 
+# scale down machines
+fly scale count 0
+
 # run container
 docker run -p 3000:3000 server
 
@@ -31,4 +34,10 @@ creating CNAME record(type CNAME, name: portfolioapi., value: matseliukh-portfol
 
 # tailwind styles build
 npx tailwindcss -i ./src/tailwind/input.css -o ./src/tailwind/tailwind.css --watch
+
+# modifying files in bash
+https://www.howtoforge.com/faq/how-to-edit-files-on-the-command-line
+
+# setting up ssl for localhost
+https://medium.com/@praveenmobdev/localhost-as-https-with-reactjs-app-on-windows-a1270d7fbd1f
 

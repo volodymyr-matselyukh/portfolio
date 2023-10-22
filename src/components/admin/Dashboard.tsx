@@ -37,7 +37,7 @@ export default observer(function Dashboard() {
 				<div className="w-full p-2.5 flex gap-2 items-baseline flex-wrap">
 					{articles.map((article) => (
 						<div
-							onClick={() => navigate(`/article/${article.name}`)}
+							onClick={() => navigate(`/article/edit/${article.id}`)}
 							key={article.id}
 							className="outline text-xl border-solid border-2 outline-2 outline-white border-gray-200 rounded-lg
 								p-3 hover:cursor-pointer hover:outline-gray-400 basis-96

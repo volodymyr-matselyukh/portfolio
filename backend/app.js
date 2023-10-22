@@ -11,7 +11,7 @@ const articleRoutes = require("./api/routes/article");
 
 const connectionUri = 'mongodb+srv://volodymyrmatselyukh:' + process.env.MONGO_ATLAS_PW + '@portfolio.m8gvq5q.mongodb.net?retryWrites=true&w=majority';
 
-const allowedReferers = ["https://matseliukh.com", "https://matseliukh-portfolio-front-end.fly.dev", "http://localhost:3000"];
+const allowedReferers = ["https://matseliukh.com", "https://matseliukh-portfolio-front-end.fly.dev", "https://local.matseliukh.com:3000"];
 
 mongoose.connect(connectionUri, { 
 	useNewUrlParser: true,
@@ -50,8 +50,6 @@ app.use((req, res, next) => {
 
 	next();
 })
-
-
 
 app.use(express.json());
 app.use(cookieParser());

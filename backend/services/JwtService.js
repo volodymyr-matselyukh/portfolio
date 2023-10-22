@@ -29,12 +29,8 @@ const addJwtCookieToResponse = (token, response) => {
 		secure: true,
 		path: '/',
 		maxAge: 1000 * 60 * 10,                 /* 10 minutes */
+		domain: '.matseliukh.com'
 	};
-
-	if (process.env.COOKIE_DOMAIN) {
-		jwtCookie.domain = process.env.COOKIE_DOMAIN;
-		console.log("domain", process.env.COOKIE_DOMAIN);
-	}
 
 	response.cookie('jwt', token, jwtCookie);
 }
@@ -45,14 +41,9 @@ const addRefreshJwtCookieToResponse = (refreshToken, response) => {
 		sameSite: 'Lax',
 		secure: true,
 		path: '/',
-		maxAge: 1000 * 60 * 60 * 24 * 400      /* 400 days */
+		maxAge: 1000 * 60 * 60 * 24 * 400,      /* 400 days */
+		domain: '.matseliukh.com'
 	};
-
-	if (process.env.COOKIE_DOMAIN) {
-		jwtRefreshCookie.domain = process.env.COOKIE_DOMAIN;
-
-		console.log("refresh domain", process.env.COOKIE_DOMAIN);
-	}
 
 	response.cookie('jwt_refresh', refreshToken, jwtRefreshCookie);
 }
